@@ -415,47 +415,30 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
                     }
                 })
                     .then((res) => res.json())
-                  .then(data => {
-  if (data.data != null && data.data.length > 0) {
-    const entity = data.data[0];
-
-    // 👉 direct URL to the entity picture (if set on the entity)
-    const imageUrl = entity.image.full || null;
-
-    createLocationPopup(feature, entity.urls?.view, imageUrl);
-  } else {
-    createLocationPopup(feature);
-  }
-});
+                    .then(data => {
+                        if (data.data != null && data.data.length > 0) {
+                            createLocationPopup(feature, data.data[0].urls.view);
+                        } else {
+                            createLocationPopup(feature);
+                        }
+                    });
             }
         });
 
-       function createLocationPopup(feature, link, imageUrl) {
-  const title = `<h3>${feature.properties.Burg}</h3>`;
-  const linkWrap = link
-    ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>`
-    : title;
-
-  const img = imageUrl
-    ? `<div style="margin:6px 0 10px;">
-         <img src="${imageUrl}" alt="${feature.properties.Burg}"
-              style="max-width:260px;width:100%;height:auto;border-radius:8px;display:block;">
-       </div>`
-    : "";
-
-  const html = `
-    ${linkWrap}
-    ${img}
-    <p>${feature.properties.Population}</p>
-    <p>${feature.properties.State}</p>
-    <p>${feature.properties.Culture}</p>
-  `;
-
-  new mapboxgl.Popup({ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML(html)
-    .addTo(map);
-}
+        function createLocationPopup(feature, link) {
+            let html;
+            if (link != null) {
+                html = `<a href="${link}" target="_blank"><h3>${feature.properties.Burg}</h3></a><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+            } else {
+                html = `<h3>${feature.properties.Burg}</h3><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+            }
+            const popup = new mapboxgl.Popup({ offset: [0, -15] })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML(
+                    html
+                )
+                .addTo(map);
+        }
     </script>
 </body>
 

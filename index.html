@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>3d Map Indentured</title>
+    <script src="threebox.js" type="text/javascript"></script>
+    <script src="config.js"></script>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .mapboxgl-ctrl button.mapboxgl-ctrl-set-token .mapboxgl-ctrl-icon {
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='100%' height='100%' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='File / File_Code'%3E%3Cpath id='Vector' d='M13 3.00087C12.9045 3 12.7973 3 12.6747 3H8.2002C7.08009 3 6.51962 3 6.0918 3.21799C5.71547 3.40973 5.40973 3.71547 5.21799 4.0918C5 4.51962 5 5.08009 5 6.2002V17.8002C5 18.9203 5 19.4801 5.21799 19.9079C5.40973 20.2842 5.71547 20.5905 6.0918 20.7822C6.51921 21 7.079 21 8.19694 21L15.8031 21C16.921 21 17.48 21 17.9074 20.7822C18.2837 20.5905 18.5905 20.2842 18.7822 19.9079C19 19.4805 19 18.9215 19 17.8036V9.32568C19 9.20296 19 9.09561 18.9991 9M13 3.00087C13.2856 3.00347 13.4663 3.01385 13.6388 3.05526C13.8429 3.10425 14.0379 3.18526 14.2168 3.29492C14.4186 3.41857 14.5918 3.59182 14.9375 3.9375L18.063 7.06298C18.4089 7.40889 18.5809 7.58136 18.7046 7.78319C18.8142 7.96214 18.8953 8.15726 18.9443 8.36133C18.9857 8.53376 18.9963 8.71451 18.9991 9M13 3.00087V5.8C13 6.9201 13 7.47977 13.218 7.90759C13.4097 8.28392 13.7155 8.59048 14.0918 8.78223C14.5192 9 15.079 9 16.1969 9H18.9991M18.9991 9H19.0002M14 13L16 15L14 17M10 17L8 15L10 13' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: no-repeat no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .mapboxgl-layer-switcher {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mapboxgl-layer-switcher-icon {
+            background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTQuODQ5cHgiIGhlaWdodD0iNTQuODQ5cHgiIHZpZXdCb3g9IjAgMCA1NC44NDkgNTQuODQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NC44NDkgNTQuODQ5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PGc+PGc+PHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMThsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzNDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+PHBhdGggZD0iTTU0LjQ5NywyNy41MTJsLTEwLjM2NC00LjQ5MWwtMTQuOTE2LDUuOTY2Yy0wLjUzNiwwLjIxNS0xLjE2NSwwLjMyMS0xLjc5MiwwLjMyMWMtMC42MjgsMC0xLjI1Ni0wLjEwNi0xLjc5My0wLjMyMWwtMTQuOTE4LTUuOTY2TDAuMzUxLDI3LjUxMmMtMC40NzIsMC4yMDMtMC40NjcsMC41MjMsMC4wMSwwLjcxNkwyNi41NiwzOC43MDZjMC40NzcsMC4xOSwxLjI1MSwwLjE5LDEuNzI5LDBsMjYuMTk5LTEwLjQ3OUM1NC45NjQsMjguMDM2LDU0Ljk2OSwyNy43MTYsNTQuNDk3LDI3LjUxMnoiLz48cGF0aCBkPSJNMC4zNjEsMTYuMTI1bDEzLjY2Miw1LjQ2NWwxMi41MzcsNS4wMTVjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMGwxMi41NDEtNS4wMTZsMTMuNjU4LTUuNDYzYzAuNDc3LTAuMTkxLDAuNDgtMC41MTEsMC4wMS0wLjcxNkwyOC4yNzcsNC4wNDhjLTAuNDcxLTAuMjA0LTEuMjM2LTAuMjA0LTEuNzA4LDBMMC4zNTEsMTUuNDFDLTAuMTIxLDE1LjYxNC0wLjExNiwxNS45MzUsMC4zNjEsMTYuMTI1eiIvPjwvZz48L2c+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjwvc3ZnPg==);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 80%;
+        }
+
+        .mapboxgl-ctrl-group .mapboxgl-layer-list button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: block;
+            font-size: 14px;
+            padding: 8px 8px 6px;
+            text-align: right;
+            width: 100%;
+            height: auto;
+        }
+
+        .mapboxgl-layer-list button.active {
+            font-weight: bold;
+        }
+      
+        .mapboxgl-popup-content {
+            background-color: rgba(256,256,256,0.7);
+        }
+
+        .mapboxgl-popup-tip {
+            background-color: rgba(256,256,256,0.7);
+        }
+    </style>
+</head>
+
+<body>
+  
+    
+    <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet" />
+    <script src="config.js"></script>
+    <div id="map"></div>
+    <script>
+const KANKA_ACCESS_TOKEN_KEY = "kankaAccessToken";
+        mapboxgl.accessToken =
+            "pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ";
+        const map = new mapboxgl.Map({
+            container: "map",
+            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+            style: "mapbox://styles/fitzchevalric/clmj7x4rt01oz01r4h0j07f13",
+            center: [-10,40,0], 
+            zoom: 5.4,
+            pitch: 0,
+            bearing: 0,
+            antialias: true, // create the gl context with MSAA antialiasing, so custom layers are antialiased
+            maxBounds: [ [-180, -90], [180, 90] ], // Set bounds to prevent camera clipping
+            maxPitch: 60, // Limit the maximum pitch to prevent camera clipping
+            maxZoom: 22, // Limit the maximum zoom level to prevent camera clipping
+            minZoom: 1, // Limit the minimum zoom level to prevent camera clipping
+            renderWorldCopies: false
+            
+           
+        });
+        map.addControl(new mapboxgl.NavigationControl());
+
+
+        // eslint-disable-next-line no-undef
+        
+      
+
+        map.on("style.load", ( ) => {
+                   
+          
+          
+                map.addSource("mapbox-dem", {
+                type: "raster-dem",
+                url: "mapbox://fitzchevalric.68qxzm7k",
+                tileSize: 256,
+                maxzoom: 6,
+                minzoom: 0,
+            });
+            // add the DEM source as a terrain layer with exaggerated height
+            map.setTerrain({
+                source: "mapbox-dem",
+                exaggeration: 0.06,
+            });
+          
+       
+          
+           window.tb = new Threebox(
+            map,
+            map.getCanvas().getContext('webgl'),
+            {
+                defaultLights: true,
+                sky: true,
+                enableSelectingObjects: false, 
+                enableTooltips: true,
+                terrain: true,
+                projection: "globe",
+              
+              
+            }
+        ); 
+          map.addLayer({
+                id: "custom-threebox-model",
+                type: "custom",
+                projection: "globe",
+                renderingMode: "3d",
+                minZoom: 6,
+                onAdd: function (map, gl) {
+                    // Creative Commons License attribution:  Metlife Building model by https://sketchfab.com/NanoRay
+                    // https://sketchfab.com/3d-models/metlife-building-32d3a4a1810a4d64abb9547bb661f7f3
+                  //Dival
+                    var options = {
+                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+                        type: "gltf",
+                        scale: 250,
+                        units: "scale",
+                        rotation: { x: 90, y: 180, z: 0 },
+                        anchor: "centre",
+                        
+                      
+                    };
+
+                    tb.loadObj(options, (model) => {
+                        model.setCoords([-6.98, 38.85, 13100.0000]);
+                        model.setRotation({ x: 0, y: 0, z: 241 });
+                        enableHighAccuracy: true
+                        tb.add(model);
+                                             
+                      
+                    });
+                  //Stonefront
+                   var options = {
+                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+                        type: "gltf",
+                        scale: 250,
+                        units: "scale",
+                        rotation: { x: 90, y: 180, z: 0 },
+                        anchor: "centre",
+                        
+                      
+                    };
+
+                    tb.loadObj(options, (model) => {
+                        model.setCoords([-8.0, 40.5, 28700.0000]);
+                        model.setRotation({ x: 0, y: 0, z: 241 });
+                        enableHighAccuracy: true
+                        tb.add(model);
+                        tb.altitudeStep = 0;
+                                             
+                      
+                    });
+                //Old Hill
+                   var options = {
+                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/Old Hill Tower.gltf?v=1717419203458",
+                        type: "gltf",
+                        scale: 4000,
+                        units: "scale",
+                        rotation: { x: 90, y: 0, z: 0 },
+                        anchor: "centre",
+                        
+                      
+                    };
+
+                    tb.loadObj(options, (model) => {
+                        model.setCoords([-7.45, 40.7, 35700.0000]);
+                        model.setRotation({ x: 0, y: 0, z: 241 });
+                        enableHighAccuracy: true
+                        tb.add(model);
+                        tb.altitudeStep = 0;
+                                             
+                      
+                    });
+                },
+
+                render: function (gl, matrix) {
+                    tb.update();
+                }
+            
+            });
+
+          
+          
+          
+        });
+
+        map.on("load", () => {
+            map.addSource("dem", {
+                type: "raster-dem",
+                url: "mapbox://fitzchevalric.68qxzm7k",
+                tileSize: 256,
+                          });
+
+            map.addLayer(
+                {
+                    id: "hillshading",
+                    source: "dem",
+                    type: "hillshade",
+                    paint: {
+                        "hillshade-exaggeration": 0.02,
+                 
+                    },
+                        
+                },
+
+                          // where hillshading sits in the Mapbox Streets style.
+            
+            
+                // Insert below land-structure-polygon layer,
+                // where hillshading sits in the Mapbox Streets style.
+                "Biomes"
+
+            );
+          
+            map.setFog({
+              'range': [0.8, 10],
+              'horizon-blend': 0.05,
+              'color': 'white',
+              'high-color': '#add8e6',
+              'space-color': '#367ab9',
+              'star-intensity': 1,
+                        });
+          
+            }  );
+      
+
+        class AccessTokenControl {
+            onAdd(map) {
+                this._map = map;
+                this._container = document.createElement('div');
+                this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+                let buttonContainer = document.createElement('button');
+                buttonContainer.className = "mapboxgl-ctrl-set-token";
+                buttonContainer.type = "button";
+                buttonContainer.ariaLabel = "Set token";
+                buttonContainer.ariaDisabled = false
+                let iconContainer = document.createElement('span');
+                iconContainer.className = "mapboxgl-ctrl-icon";
+                iconContainer.ariaHidden = true;
+                iconContainer.title = "Set token";
+                buttonContainer.appendChild(iconContainer);
+                buttonContainer.addEventListener("click", () => {
+                    let token = prompt("Enter Kanka access token");
+                    if (token) {
+                        localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, token);
+}
+                });
+if (!localStorage.getItem(KANKA_ACCESS_TOKEN_KEY)) {
+                    localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, AccessTokenControl.DEFAULT_TOKEN);
+                }
+                this._container.appendChild(buttonContainer);
+                return this._container;
+            }
+
+            onRemove() {
+                this._container.parentNode.removeChild(this._container);
+                this._map = undefined;
+            }
+        }
+AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWVjMTNhMzIwNjFlMWRhYWNlZDYxY2U0Y2U0ZWVmN2M4NGRmZjhjN2NkOWEyNWIyMTU4NjczODEyNGRkNzUzMGYwODZhOWMwNWZmNGMyMjkiLCJpYXQiOjE3MDUzOTg4MjIuMzc5NjQzLCJuYmYiOjE3MDUzOTg4MjIuMzc5NjQ2LCJleHAiOjE3MzcwMjEyMjIuMzcxOTI3LCJzdWIiOiIyMzYyNjgiLCJzY29wZXMiOltdfQ.yvoPGTRFv1qss9Rq8L7OvOPwwau0Llu20MtCRp5tbfCg1VZ0K-4kw0SQEVPzpko9S2LiSSOp3X55bgMUhXjXtA1CIBxyHFVQ6qumJzAEBHhfDnFLxTouQ7Qeo9zp_9Rftz3LCmM0zV413u-SEuhtJf8uh5DZorILfxTY3VuIy0NSlrT_mk5JvmwLgyw1lsU3oFMC6RUPVn1vPk5RpmmlHXwCBp_9BElwxoMgnaFXZRMuburw9Qnw2vDFzWE5YbFZl1gNOXHpuDz4ZmzO6mWtLwUILSDb5QOGxKyUGOPaeCSUkKeUPitFUGMegs_iGjwiWl76OLxxsfQSkgX5g0ktq5nFeK-dr5NipfTWKzq51qmpht_HFgwwRxRh02fZ3z4D5VDw5gqdZOYWFGNcUj1-izU9FvnASMGUrAozyHyBy1ltZvGUq011SQ7MJjWgikUoARlE2bHVKkwU2-ztlnWLvv9B-N04B0JqqK1onbbNj-3jo8SvNm_Dic05csCSfphL6DFlZvUiHupKZQFLibuL-0KVL5wQuRRTy2xBVpqjt0k4NquThjmshHb1a0csFOgcVT-NDlD4Faq37o9HYlwExC19Fzz5sqjVVTKkmSLrirjgHQ_wnCb2b8Ql_lkeSVN9T5Tuxuh8EMrwWDiZh1KdacgNx0zcOqAKKN_3bMF5mZo";
+
+        class LayerSwitcherControl {
+            constructor(layers, options) {
+                this.layers = layers || LayerSwitcherControl.LAYERS;
+            }
+            getDefaultPosition() {
+                const defaultPosition = "top-right";
+                return defaultPosition;
+            }
+            onAdd(map) {
+                this.map = map;
+                this.controlContainer = document.createElement("div");
+                this.controlContainer.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+                this.mapLayersContainer = document.createElement("div");
+                this.mapLayersContainer.classList.add("mapboxgl-layer-list");
+                this.layerButtonContainer = document.createElement("div");
+                this.layerButtonContainer.classList.add("mapboxgl-layer-switcher");
+                this.layerButton = document.createElement("button");
+                this.layerButton.type = "button";
+                this.layerButton.classList.add("mapboxgl-ctrl-icon");
+                this.layerButton.classList.add("mapboxgl-layer-switcher-icon");
+                this.layerButton.addEventListener("click", event => {
+                    if (this.events && this.events.onSelect && this.events.onSelect(event)) {
+                        return;
+                    }
+                    if (this.mapLayersContainer.style.display === "none") {
+                        this.openModal();
+                    } else {
+                        this.closeModal();
+                    }
+                });
+                this.layerButtonContainer.appendChild(this.layerButton);
+                this.controlContainer.appendChild(this.layerButtonContainer);
+                document.addEventListener("click", this.onDocumentClick);
+                for (const layer of this.layers) {
+                    const layerElement = document.createElement("button");
+                    layerElement.type = "button";
+                    layerElement.innerText = layer.title;
+                    layerElement.classList.add(layer.title.replace(/[^a-z0-9-]/gi, '_'));
+                    layerElement.dataset.layerIds = JSON.stringify(layer.layerIds);
+                    layerElement.addEventListener("click", event => {
+                        const srcElement = event.srcElement;
+                        console.log(srcElement.dataset)
+                        if (srcElement.classList.contains("active")) {
+                            srcElement.classList.remove("active");
+                            let layerIds = JSON.parse(srcElement.dataset.layerIds);
+                            for (const layerId of layerIds) {
+                                map.setLayoutProperty(
+                                    layerId,
+                                    'visibility',
+                                    'none'
+                                );
+                            }
+                        } else {
+                            srcElement.classList.add("active");
+                            let layerIds = JSON.parse(srcElement.dataset.layerIds);
+                            for (const layerId of layerIds) {
+                                map.setLayoutProperty(
+                                    layerId,
+                                    'visibility',
+                                    'visible'
+                                );
+                            }
+                        }
+                    });
+                    // if (layer.title === this.defaultStyle) {
+                    layerElement.classList.add("active");
+                    // }
+                    this.mapLayersContainer.appendChild(layerElement);
+                }
+                this.controlContainer.appendChild(this.mapLayersContainer);
+                this.closeModal();
+                return this.controlContainer;
+            }
+            onRemove() {
+                if (!this.controlContainer || !this.controlContainer.parentNode || !this.map || !this.layerButton) {
+                    return;
+                }
+                this.layerButton.removeEventListener("click", this.onDocumentClick);
+                this.controlContainer.parentNode.removeChild(this.controlContainer);
+                document.removeEventListener("click", this.onDocumentClick);
+                this.map = undefined;
+            }
+            closeModal() {
+                if (this.mapLayersContainer && this.layerButton) {
+                    this.layerButton.style.display = "block";
+                    this.mapLayersContainer.style.display = "none";
+                }
+            }
+            openModal() {
+                if (this.mapLayersContainer && this.layerButton) {
+                    this.layerButton.style.display = "block";
+                    this.mapLayersContainer.style.display = "block";
+                }
+            }
+        }
+        LayerSwitcherControl.LAYERS = [
+            { title: "States", layerIds: ["States"] },
+            { title: "Towns", layerIds: ["Town names", "Capitals"] }
+        ];
+
+        map.addControl(new LayerSwitcherControl());
+        map.addControl(new AccessTokenControl());
+
+                map.on("click", ["Town names", "Capitals", "clickable"], (e) => {
+            const feature = e.features[0];
+            // Ignore features which are not shown
+            if (feature.layer.paint["icon-opacity"] == 0) return;
+            let kankaAccessToken = localStorage.getItem(KANKA_ACCESS_TOKEN_KEY);
+            if (!kankaAccessToken || kankaAccessToken == null) {
+                createLocationPopup(feature);
+            } else {
+                fetch("https://api.kanka.io/1.0/campaigns/196997/entities?" + new URLSearchParams({
+                    types: 'location',
+                    name: `${feature.properties.Burg}`
+                }), {
+                    method: 'GET',
+                    headers: {
+                        "Authorization": `Bearer ${kankaAccessToken}`
+                    }
+                })
+                    .then((res) => res.json())
+                    .then(data => {
+                        if (data.data != null && data.data.length > 0) {
+                            createLocationPopup(feature, data.data[0].urls.view);
+                        } else {
+                            createLocationPopup(feature);
+                        }
+                    });
+            }
+        });
+
+        function createLocationPopup(feature, link) {
+            let html;
+            if (link != null) {
+                html = `<a href="${link}" target="_blank"><h3>${feature.properties.Burg}</h3></a><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+            } else {
+                html = `<h3>${feature.properties.Burg}</h3><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+            }
+            const popup = new mapboxgl.Popup({ offset: [0, -15] })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML(
+                    html
+                )
+                .addTo(map);
+        }
+    </script>
+</body>
+
+</html>

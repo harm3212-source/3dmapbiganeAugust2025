@@ -415,20 +415,18 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
                     }
                 })
                     .then((res) => res.json())
-                    .then(async data => {
+                    .then(data => {
   if (data.data != null && data.data.length > 0) {
     const entity = data.data[0];
 
-    // grab the thumbnail from the dedicated image endpoint
-    const imgRes = await fetch(
-      `https://api.kanka.io/1.0/campaigns/196997/entities/${entity.id}/image`,
-      {
-        headers: {
-          "Authorization": `Bearer ${kankaAccessToken}`,
-          "accept": "application/json"
-        }
-      }
-    );
+    //  official thumbnail straight from the entity payload
+    const thumbUrl = entity.image_thumb || null;
+
+    createLocationPopup(feature, entity.urls?.view, thumbUrl);
+  } else {
+    createLocationPopup(feature);
+  }
+});
 
     let thumbUrl = null;
     if (imgRes.ok) {
@@ -449,8 +447,7 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
     createLocationPopup(feature);
   }
 });
-            }
-        });
+           
 
        function createLocationPopup(feature, link, imageUrl) {
   const title = `<h3>${feature.properties.Burg}</h3>`;
@@ -478,6 +475,7 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
     .setHTML(html)
     .addTo(map);
 }
+
     </script>
 </body>
 

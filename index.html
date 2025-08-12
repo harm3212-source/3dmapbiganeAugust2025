@@ -420,7 +420,7 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
     const entity = data.data[0];
 
     // 👉 direct URL to the entity picture (if set on the entity)
-    const imageUrl = entity.image_full || null;
+    const imageUrl = entity.image.full || null;
 
     createLocationPopup(feature, entity.urls?.view, imageUrl);
   } else {

@@ -148,9 +148,7 @@
                     let token = prompt("Enter Kanka access token");
                     if (token) { localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, token); }
                 });
-                if (!localStorage.getItem(KANKA_ACCESS_TOKEN_KEY)) {
-                    localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, AccessTokenControl.DEFAULT_TOKEN);
-                }
+                // (no default token set here; user must input their own token)
                 this._container.appendChild(buttonContainer);
                 return this._container;
             }
@@ -159,7 +157,7 @@
                 this._map = undefined;
             }
         }
-        AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWVjMTNhMzIwNjFlMWRhYWNlZDYxY2U0Y2U0ZWVmN2M4NGRmZjhjN2NkOWEyNWIyMTU4NjczODEyNGRkNzUzMGYwODZhOWMwNWZmNGMyMjkiLCJpYXQiOjE3MDUzOTg4MjIuMzc5NjQzLCJuYmYiOjE3MDUzOTg4MjIuMzc5NjQ2LCJleHAiOjE3MzcwMjEyMjIuMzcxOTI3LCJzdWIiOiIyMzYyNjgiLCJzY29wZXMiOltdfQ.yvoPGTRFv1qss9Rq8L7OvOPwwau0Llu20MtCRp5tbfCg1VZ0K-4kw0SQEVPzpko9S2LiSSOp3X55bgMUhXjXtA1CIBxyHFVQ6qumJzAEBHhfDnFLxTouQ7Qeo9zp_9Rftz3LCmM0zV413u-SEuhtJf8uh5DZorILfxTY3VuIy0NSlrT_mk5JvmwLgyw1lsU3oFMC6RUPVn1vPk5RpmmlHXwCBp_9BElwxoMgnaFXZRMuburw9Qnw2vDFzWE5YbFZl1gNOXHpuDz4ZmzO6mWtLwUILSDb5QOGxKyUGOPaeCSUkKeUPitFUGMegs_iGjwiWl76OLxxsfQSkgX5g0ktq5nFeK-dr5NipfTWKzq51qmpht_HFgwwRxRh02fZ3z4D5VDw5gqdZOYWFGNcUj1-izU9FvnASMGUrAozyHyBy1ltZvGUq011SQ7MJjWgikUoARlE2bHVKkwU2-ztlnWLvv9B-N04B0JqqK1onbbNj-3jo8SvNm_Dic05csCSfphL6DFlZvUiHupKZQFLibuL-0KVL5wQuRRTy2xBVpqjt0k4NquThjmshHb1a0csFOgcVT-NDlD4Faq37o9HYlwExC19Fzz5sqjVVTKkmSLrirjgHQ_wnCb2b8Ql_lkeSVN9T5Tuxuh8EMrwWDiZh1KdacgNx0zcOqAKKN_3bMF5mZo";
+        // AccessTokenControl.DEFAULT_TOKEN removed (expired). Please set your own token via the key button.
 
         class LayerSwitcherControl {
             constructor(layers, options) { this.layers = layers || LayerSwitcherControl.LAYERS; }
@@ -229,44 +227,49 @@
         // --- Kanka lookup + image injection ---
         map.on("click", ["Town names", "Capitals", "clickable"], async (e) => {
             const feature = e.features[0];
-            // Ignore features which are not shown
-            if (feature.layer.paint && feature.layer.paint["icon-opacity"] === 0) return;
+            if (feature.layer && feature.layer.paint && feature.layer.paint["icon-opacity"] === 0) return;
 
             const kankaAccessToken = localStorage.getItem(KANKA_ACCESS_TOKEN_KEY);
-            if (!kankaAccessToken) {
-                createLocationPopup(feature); // no token, show basic info
-                return;
-            }
+            if (!kankaAccessToken) { createLocationPopup(feature); alert('Tip: click the key icon to set your Kanka API token to load images.'); return; }
 
             try {
-                // 1) find entity by name
+                // 1) Search entities with exact name match and filter by type via entities endpoint
                 const searchUrl = new URL("https://api.kanka.io/1.0/campaigns/196997/entities");
-                searchUrl.search = new URLSearchParams({ types: 'location', name: `${feature.properties.Burg}` }).toString();
+                searchUrl.search = new URLSearchParams({ types: 'location', name: `${feature.properties.Burg}!` }).toString();
                 const res = await fetch(searchUrl.toString(), {
                     method: 'GET',
-                    headers: { "Authorization": `Bearer ${kankaAccessToken}`, "accept": "application/json" }
+                    headers: { "Authorization": `Bearer ${kankaAccessToken}`, "accept": "application/json", "content-type": "application/json" }
                 });
+
+                if (res.status === 401) {
+                    alert('Your Kanka token is invalid or expired. Click the key icon to set a new one.');
+                    return createLocationPopup(feature);
+                }
+
                 const data = await res.json();
-                if (!data || !data.data || data.data.length === 0) { createLocationPopup(feature); return; }
+                if (!data || !data.data || data.data.length === 0) { return createLocationPopup(feature); }
                 const entity = data.data[0];
 
-                // 2) fetch image URL for this entity
-                let imageUrl = null;
-                try {
-                    const imgRes = await fetch(`https://api.kanka.io/1.0/campaigns/196997/entities/${entity.id}/image`, {
-                        headers: { "Authorization": `Bearer ${kankaAccessToken}`, "accept": "application/json" }
-                    });
-                    if (imgRes.ok) {
-                        const images = await imgRes.json();
-                        imageUrl = (images && images.image && images.image.full) ? images.image.full : (images && images.header && images.header.full ? images.header.full : null);
-                    }
-                } catch (err) { /* swallow image errors, still show popup */ }
+                // Prefer image_full directly on the entity (single request)
+                let imageUrl = entity.image_full || null;
 
-                // 3) build popup with optional image and link
+                // Optional: try the image endpoint as a fallback if nothing on the entity
+                if (!imageUrl) {
+                    try {
+                        const imgRes = await fetch(`https://api.kanka.io/1.0/campaigns/196997/entities/${entity.id}/image`, {
+                            headers: { "Authorization": `Bearer ${kankaAccessToken}`, "accept": "application/json" }
+                        });
+                        if (imgRes.ok) {
+                            const images = await imgRes.json();
+                            imageUrl = (images && images.image && images.image.full) ? images.image.full : (images && images.header && images.header.full ? images.header.full : null);
+                        }
+                    } catch (err) { /* ignore */ }
+                }
+
                 createLocationPopup(feature, entity.urls && entity.urls.view, imageUrl);
             } catch (err) {
                 console.error('Kanka lookup failed', err);
-                createLocationPopup(feature); // graceful fallback
+                createLocationPopup(feature);
             }
         });
 

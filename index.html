@@ -420,7 +420,7 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
     const entity = data.data[0];
 
     //  official thumbnail straight from the entity payload
-    const thumbUrl = entity.image_thumb || null;
+    const thumbUrl = entity.image.image_thumb || null;
 
     createLocationPopup(feature, entity.urls?.view, thumbUrl);
   } else {

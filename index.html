@@ -429,7 +429,7 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
        function createLocationPopup(feature, link, data) {
             let html;
             if (link != null) {
-                html = `<a href="${link}" target="_blank"><h3>${feature.properties.Burg}</h3></a><p><p>${data.data.image.imagethumb}</p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+                html = `<a href="${link}" target="_blank"><h3>${feature.properties.Burg}</h3></a><p><p>${data.data.image.image_thumb}</p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
             } else {
                 html = `<h3>${feature.properties.Burg}</h3><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
             }

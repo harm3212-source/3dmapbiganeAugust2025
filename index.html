@@ -4,11 +4,22 @@
 <head>
     <meta charset="utf-8" />
     <title>3d Map Indentured</title>
+
     <script src="threebox.js" type="text/javascript"></script>
     <script src="config.js"></script>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet" />
+
+    <meta
+        name="viewport"
+        content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css"
+        rel="stylesheet"
+    />
+
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+
     <style>
         body {
             margin: 0;
@@ -22,12 +33,23 @@
             width: 100%;
         }
 
+
+        /* =========================================================
+           TOKEN BUTTON
+           ========================================================= */
+
         .mapboxgl-ctrl button.mapboxgl-ctrl-set-token .mapboxgl-ctrl-icon {
             background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='100%' height='100%' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='File / File_Code'%3E%3Cpath id='Vector' d='M13 3.00087C12.9045 3 12.7973 3 12.6747 3H8.2002C7.08009 3 6.51962 3 6.0918 3.21799C5.71547 3.40973 5.40973 3.71547 5.21799 4.0918C5 4.51962 5 5.08009 5 6.2002V17.8002C5 18.9203 5 19.4801 5.21799 19.9079C5.40973 20.2842 5.71547 20.5905 6.0918 20.7822C6.51921 21 7.079 21 8.19694 21L15.8031 21C16.921 21 17.48 21 17.9074 20.7822C18.2837 20.5905 18.5905 20.2842 18.7822 19.9079C19 19.4805 19 18.9215 19 17.8036V9.32568C19 9.20296 19 9.09561 18.9991 9M13 3.00087C13.2856 3.00347 13.4663 3.01385 13.6388 3.05526C13.8429 3.10425 14.0379 3.18526 14.2168 3.29492C14.4186 3.41857 14.5918 3.59182 14.9375 3.9375L18.063 7.06298C18.4089 7.40889 18.5809 7.58136 18.7046 7.78319C18.8142 7.96214 18.8953 8.15726 18.9443 8.36133C18.9857 8.53376 18.9963 8.71451 18.9991 9M13 3.00087V5.8C13 6.9201 13 7.47977 13.218 7.90759C13.4097 8.28392 13.7155 8.59048 14.0918 8.78223C14.5192 9 15.079 9 16.1969 9H18.9991M18.9991 9H19.0002M14 13L16 15L14 17M10 17L8 15L10 13' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E");
-            background-repeat: no-repeat no-repeat;
-            background-position: center center;
+
+            background-repeat: no-repeat;
+            background-position: center;
             background-size: cover;
         }
+
+
+        /* =========================================================
+           LAYER SWITCHER
+           ========================================================= */
 
         .mapboxgl-layer-switcher {
             display: flex;
@@ -36,7 +58,8 @@
         }
 
         .mapboxgl-layer-switcher-icon {
-            background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTQuODQ5cHgiIGhlaWdodD0iNTQuODQ5cHgiIHZpZXdCb3g9IjAgMCA1NC44NDkgNTQuODQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NC44NDkgNTQuODQ5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PGc+PGc+PHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMThsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzNDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+PHBhdGggZD0iTTU0LjQ5NywyNy41MTJsLTEwLjM2NC00LjQ5MWwtMTQuOTE2LDUuOTY2Yy0wLjUzNiwwLjIxNS0xLjE2NSwwLjMyMS0xLjc5MiwwLjMyMWMtMC42MjgsMC0xLjI1Ni0wLjEwNi0xLjc5My0wLjMyMWwtMTQuOTE4LTUuOTY2TDAuMzUxLDI3LjUxMmMtMC40NzIsMC4yMDMtMC40NjcsMC41MjMsMC4wMSwwLjcxNkwyNi41NiwzOC43MDZjMC40NzcsMC4xOSwxLjI1MSwwLjE5LDEuNzI5LDBsMjYuMTk5LTEwLjQ3OUM1NC45NjQsMjguMDM2LDU0Ljk2OSwyNy43MTYsNTQuNDk3LDI3LjUxMnoiLz48cGF0aCBkPSJNMC4zNjEsMTYuMTI1bDEzLjY2Miw1LjQ2NWwxMi41MzcsNS4wMTVjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMGwxMi41NDEtNS4wMTZsMTMuNjU4LTUuNDYzYzAuNDc3LTAuMTkxLDAuNDgtMC41MTEsMC4wMS0wLjcxNkwyOC4yNzcsNC4wNDhjLTAuNDcxLTAuMjA0LTEuMjM2LTAuMjA0LTEuNzA4LDBMMC4zNTEsMTUuNDFDLTAuMTIxLDE1LjYxNC0wLjExNiwxNS45MzUsMC4zNjEsMTYuMTI1eiIvPjwvZz48L2c+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjwvc3ZnPg==);
+            background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cud3Mub3JnL0dSYWZpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjU0Ljg0OXB4IiBoZWlnaHQ9IjU0Ljg0OXB4IiB2aWV3Qm94PSIwIDAgNTQuODQ5IDU0Ljg0OSI+PHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMThsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzNDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+PC9zdmc+);
+
             background-position: center;
             background-repeat: no-repeat;
             background-size: 80%;
@@ -57,457 +80,1463 @@
         .mapboxgl-layer-list button.active {
             font-weight: bold;
         }
-      
-        .mapboxgl-popup-content {
-            background-color: rgba(256,256,256,0.7);
+
+
+        /* =========================================================
+           MOOIERE LOCATION POPUP
+           ========================================================= */
+
+        .mapboxgl-popup {
+            max-width: 320px !important;
         }
 
+        .mapboxgl-popup-content {
+            padding: 0 !important;
+            overflow: hidden;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.25);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* sluitknop */
+
+        .mapboxgl-popup-close-button {
+            position: absolute;
+
+            top: 7px;
+            right: 7px;
+
+            width: 30px;
+            height: 30px;
+
+            padding: 0;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            color: #333;
+
+            font-size: 22px;
+            line-height: 26px;
+
+            z-index: 10;
+
+            box-shadow:
+                0 2px 7px rgba(0, 0, 0, 0.18);
+        }
+
+        .mapboxgl-popup-close-button:hover {
+            background: #ffffff;
+        }
+
+
+        /* afbeelding */
+
+        .location-popup-image-wrapper {
+            position: relative;
+
+            width: 100%;
+            height: 165px;
+
+            overflow: hidden;
+
+            background: #eeeeee;
+        }
+
+        .location-popup-image {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        /* gradient over onderkant afbeelding */
+
+        .location-popup-image-wrapper::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 50px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0.18)
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* popup inhoud */
+
+        .location-popup-content {
+            padding: 16px 17px 17px;
+        }
+
+
+        /* titel */
+
+        .location-popup-title {
+            margin: 0 0 10px;
+
+            color: #222;
+
+            font-size: 23px;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .location-popup-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .location-popup-title a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* labels */
+
+        .location-popup-tags {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-bottom: 14px;
+        }
+
+        .location-popup-tag {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 999px;
+
+            background: #eceef1;
+
+            color: #444;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+        /* informatie regels */
+
+        .location-popup-info {
+            display: flex;
+            flex-direction: column;
+
+            gap: 0;
+
+            color: #444;
+
+            font-size: 14px;
+        }
+
+        .location-popup-row {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 9px 0;
+
+            border-top: 1px solid #eeeeee;
+        }
+
+        .location-popup-label {
+            color: #777;
+        }
+
+        .location-popup-value {
+            color: #333;
+
+            font-weight: 600;
+
+            text-align: right;
+        }
+
+
+        /* punt onder popup */
+
         .mapboxgl-popup-tip {
-            background-color: rgba(256,256,256,0.7);
+            border-top-color: rgba(255, 255, 255, 0.98) !important;
         }
     </style>
 </head>
 
+
 <body>
-  
-    
-    <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet" />
+
+    <link
+        href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css"
+        rel="stylesheet"
+    />
+
     <script src="config.js"></script>
+
     <div id="map"></div>
+
+
     <script>
-const KANKA_ACCESS_TOKEN_KEY = "kankaAccessToken";
+
+        /* =========================================================
+           KANKA
+           ========================================================= */
+
+        const KANKA_ACCESS_TOKEN_KEY = "kankaAccessToken";
+
+
+        /* =========================================================
+           MAPBOX
+           ========================================================= */
+
         mapboxgl.accessToken =
             "pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ";
+
+
         const map = new mapboxgl.Map({
+
             container: "map",
-            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-            style: "mapbox://styles/fitzchevalric/clmj7x4rt01oz01r4h0j07f13",
-            center: [-10,40,0], 
+
+            style:
+                "mapbox://styles/fitzchevalric/clmj7x4rt01oz01r4h0j07f13",
+
+            center: [-10, 40, 0],
+
             zoom: 5.4,
+
             pitch: 0,
+
             bearing: 0,
-            antialias: true, // create the gl context with MSAA antialiasing, so custom layers are antialiased
-            maxBounds: [ [-180, -90], [180, 90] ], // Set bounds to prevent camera clipping
-            maxPitch: 60, // Limit the maximum pitch to prevent camera clipping
-            maxZoom: 22, // Limit the maximum zoom level to prevent camera clipping
-            minZoom: 1, // Limit the minimum zoom level to prevent camera clipping
+
+            antialias: true,
+
+            maxBounds: [
+                [-180, -90],
+                [180, 90]
+            ],
+
+            maxPitch: 60,
+
+            maxZoom: 22,
+
+            minZoom: 1,
+
             renderWorldCopies: false
-            
-           
+
         });
-        map.addControl(new mapboxgl.NavigationControl());
 
 
-        // eslint-disable-next-line no-undef
-        
-      
+        map.addControl(
+            new mapboxgl.NavigationControl()
+        );
 
-        map.on("style.load", ( ) => {
-                   
-          
-          
-                map.addSource("mapbox-dem", {
+
+        /* =========================================================
+           TERRAIN + THREEBOX
+           ========================================================= */
+
+        map.on("style.load", () => {
+
+
+            map.addSource("mapbox-dem", {
+
                 type: "raster-dem",
-                url: "mapbox://fitzchevalric.68qxzm7k",
+
+                url:
+                    "mapbox://fitzchevalric.68qxzm7k",
+
                 tileSize: 256,
+
                 maxzoom: 6,
-                minzoom: 0,
+
+                minzoom: 0
+
             });
-            // add the DEM source as a terrain layer with exaggerated height
+
+
             map.setTerrain({
+
                 source: "mapbox-dem",
-                exaggeration: 0.06,
+
+                exaggeration: 0.06
+
             });
-          
-       
-          
-           window.tb = new Threebox(
-            map,
-            map.getCanvas().getContext('webgl'),
-            {
-                defaultLights: true,
-                sky: true,
-                enableSelectingObjects: false, 
-                enableTooltips: true,
-                terrain: true,
-                projection: "globe",
-              
-              
-            }
-        ); 
-          map.addLayer({
+
+
+            window.tb = new Threebox(
+
+                map,
+
+                map.getCanvas().getContext("webgl"),
+
+                {
+
+                    defaultLights: true,
+
+                    sky: true,
+
+                    enableSelectingObjects: false,
+
+                    enableTooltips: true,
+
+                    terrain: true,
+
+                    projection: "globe"
+
+                }
+
+            );
+
+
+            map.addLayer({
+
                 id: "custom-threebox-model",
+
                 type: "custom",
+
                 projection: "globe",
+
                 renderingMode: "3d",
+
                 minZoom: 6,
+
+
                 onAdd: function (map, gl) {
-                    // Creative Commons License attribution:  Metlife Building model by https://sketchfab.com/NanoRay
-                    // https://sketchfab.com/3d-models/metlife-building-32d3a4a1810a4d64abb9547bb661f7f3
-                  //Dival
+
+
+                    /* =========================
+                       DIVAL
+                       ========================= */
+
                     var options = {
-                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+
+                        obj:
+                            "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+
                         type: "gltf",
+
                         scale: 250,
+
                         units: "scale",
-                        rotation: { x: 90, y: 180, z: 0 },
-                        anchor: "centre",
-                        
-                      
+
+                        rotation: {
+                            x: 90,
+                            y: 180,
+                            z: 0
+                        },
+
+                        anchor: "centre"
+
                     };
 
-                    tb.loadObj(options, (model) => {
-                        model.setCoords([-6.98, 38.85, 13100.0000]);
-                        model.setRotation({ x: 0, y: 0, z: 241 });
-                        enableHighAccuracy: true
-                        tb.add(model);
-                                             
-                      
-                    });
-                  //Stonefront
-                   var options = {
-                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+
+                    tb.loadObj(
+                        options,
+                        (model) => {
+
+                            model.setCoords(
+                                [-6.98, 38.85, 13100.0000]
+                            );
+
+                            model.setRotation({
+                                x: 0,
+                                y: 0,
+                                z: 241
+                            });
+
+                            tb.add(model);
+
+                        }
+                    );
+
+
+                    /* =========================
+                       STONEFRONT
+                       ========================= */
+
+                    var stonefrontOptions = {
+
+                        obj:
+                            "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/scene.gltf?v=1717413150136",
+
                         type: "gltf",
+
                         scale: 250,
+
                         units: "scale",
-                        rotation: { x: 90, y: 180, z: 0 },
-                        anchor: "centre",
-                        
-                      
+
+                        rotation: {
+                            x: 90,
+                            y: 180,
+                            z: 0
+                        },
+
+                        anchor: "centre"
+
                     };
 
-                    tb.loadObj(options, (model) => {
-                        model.setCoords([-8.0, 40.5, 28700.0000]);
-                        model.setRotation({ x: 0, y: 0, z: 241 });
-                        enableHighAccuracy: true
-                        tb.add(model);
-                        tb.altitudeStep = 0;
-                                             
-                      
-                    });
-                //Old Hill
-                   var options = {
-                        obj: "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/Old Hill Tower.gltf?v=1717419203458",
+
+                    tb.loadObj(
+                        stonefrontOptions,
+                        (model) => {
+
+                            model.setCoords(
+                                [-8.0, 40.5, 28700.0000]
+                            );
+
+                            model.setRotation({
+                                x: 0,
+                                y: 0,
+                                z: 241
+                            });
+
+                            tb.add(model);
+
+                            tb.altitudeStep = 0;
+
+                        }
+                    );
+
+
+                    /* =========================
+                       OLD HILL
+                       ========================= */
+
+                    var oldHillOptions = {
+
+                        obj:
+                            "https://cdn.glitch.global/f74434fa-8946-4fcc-8584-781241e68fd4/Old Hill Tower.gltf?v=1717419203458",
+
                         type: "gltf",
+
                         scale: 4000,
+
                         units: "scale",
-                        rotation: { x: 90, y: 0, z: 0 },
-                        anchor: "centre",
-                        
-                      
+
+                        rotation: {
+                            x: 90,
+                            y: 0,
+                            z: 0
+                        },
+
+                        anchor: "centre"
+
                     };
 
-                    tb.loadObj(options, (model) => {
-                        model.setCoords([-7.45, 40.7, 35700.0000]);
-                        model.setRotation({ x: 0, y: 0, z: 241 });
-                        enableHighAccuracy: true
-                        tb.add(model);
-                        tb.altitudeStep = 0;
-                                             
-                      
-                    });
+
+                    tb.loadObj(
+                        oldHillOptions,
+                        (model) => {
+
+                            model.setCoords(
+                                [-7.45, 40.7, 35700.0000]
+                            );
+
+                            model.setRotation({
+                                x: 0,
+                                y: 0,
+                                z: 241
+                            });
+
+                            tb.add(model);
+
+                            tb.altitudeStep = 0;
+
+                        }
+                    );
+
                 },
 
-                render: function (gl, matrix) {
+
+                render: function () {
+
                     tb.update();
+
                 }
-            
+
             });
 
-          
-          
-          
         });
+
+
+        /* =========================================================
+           HILLSHADE + FOG
+           ========================================================= */
 
         map.on("load", () => {
+
+
             map.addSource("dem", {
+
                 type: "raster-dem",
-                url: "mapbox://fitzchevalric.68qxzm7k",
-                tileSize: 256,
-                          });
+
+                url:
+                    "mapbox://fitzchevalric.68qxzm7k",
+
+                tileSize: 256
+
+            });
+
 
             map.addLayer(
+
                 {
+
                     id: "hillshading",
+
                     source: "dem",
+
                     type: "hillshade",
+
                     paint: {
-                        "hillshade-exaggeration": 0.02,
-                 
-                    },
-                        
+
+                        "hillshade-exaggeration": 0.02
+
+                    }
+
                 },
 
-                          // where hillshading sits in the Mapbox Streets style.
-            
-            
-                // Insert below land-structure-polygon layer,
-                // where hillshading sits in the Mapbox Streets style.
                 "Biomes"
 
             );
-          
+
+
             map.setFog({
-              'range': [0.8, 10],
-              'horizon-blend': 0.05,
-              'color': 'white',
-              'high-color': '#add8e6',
-              'space-color': '#367ab9',
-              'star-intensity': 1,
-                        });
-          
-            }  );
-      
 
-        class AccessTokenControl {
-            onAdd(map) {
-                this._map = map;
-                this._container = document.createElement('div');
-                this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-                let buttonContainer = document.createElement('button');
-                buttonContainer.className = "mapboxgl-ctrl-set-token";
-                buttonContainer.type = "button";
-                buttonContainer.ariaLabel = "Set token";
-                buttonContainer.ariaDisabled = false
-                let iconContainer = document.createElement('span');
-                iconContainer.className = "mapboxgl-ctrl-icon";
-                iconContainer.ariaHidden = true;
-                iconContainer.title = "Set token";
-                buttonContainer.appendChild(iconContainer);
-                buttonContainer.addEventListener("click", () => {
-                    let token = prompt("Enter Kanka access token");
-                    if (token) {
-                        localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, token);
-}
-                });
-// Keep localStorage in sync with the token bundled in this file.
-                // This prevents an expired token from an older version from being reused.
-                localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, AccessTokenControl.DEFAULT_TOKEN);
-                this._container.appendChild(buttonContainer);
-                return this._container;
-            }
+                "range": [0.8, 10],
 
-            onRemove() {
-                this._container.parentNode.removeChild(this._container);
-                this._map = undefined;
-            }
-        }
-AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjdhZWUxZDFlMmY2NzY5NTgxOWQxNzVmMTViMTc1OTQ1NzczOWZiNTAwOGU2NGM4NWVkMjg4NGUxNjU0ZGExZjNjMmI1ZTQ2NDk1ZTQ5MTUiLCJpYXQiOjE3OTA2ODIwOTYuNjg2NzYsIm5iZiI6MTc5MDY4MjA5Ni42ODY3NjEsImV4cCI6MTgyMjIxODA5Ni42ODE0OTMsInN1YiI6IjIwMTY1MCIsInNjb3BlcyI6W119.VzFgAQZcD6U92h1uoLA70gxNZ_14RfHtVTkhe3X4cVxA-haNtGTGH3ULugqmje0EkRSptcJyNglIOlNiKe3qFnGakEp9evGOmnkWbmTYrsgjZEMHFKGfA9HtCKh07ITRZrToAYxK3_u6nm4JWZcK3uSKXNuXwr4C5VQ0OOTulUR20ZSbyvFMaAWH3J9XtFrV5wK1xYmMAqr3T_Wj4FVmk95xZrobz8-SlEOyELS_jdKrtdbvmWnNAZt5PH0Osixn2lSKy3YH7qr_fIRG7R4pdGJNtW14n_lJ5NgJpQ1jI9K7L117CNfpCUaWcGrVatz8m4_aEQwroPEb2pHOK6vZKyAp4zv-Rr5EZYF1Fe1MzpW49rwdWYl6eES5KsYEj0_eGPY9utKrHg73ETyGOkK5DqpYIuo9lpDV9dlZKdWzWbodUngp_rkjTjZCitA9qNgoaqyJOOV6sNlr2vUXS6SNH6jBJC_Hyxntq4uweFbUmcWkrg0eGBH87d7yUg4UX_XbFs4ssNw4jvzEL1LVgQ1pPlSZB1Uhlr5q7tULEVT5NrqTSjz5-NtnxJrgXl2TC0yrLgkObssW4VOB-kFo37eHC13dnhvvNvwxNiH9Ay67z5qzS4LVyh3GN6hAuJsT0dnmm0ShU-Vz5K2HiCAXjZkG0NvzFYQjFh1Tm9FlTR-Qm-w";
+                "horizon-blend": 0.05,
 
-        class LayerSwitcherControl {
-            constructor(layers, options) {
-                this.layers = layers || LayerSwitcherControl.LAYERS;
-            }
-            getDefaultPosition() {
-                const defaultPosition = "top-right";
-                return defaultPosition;
-            }
-            onAdd(map) {
-                this.map = map;
-                this.controlContainer = document.createElement("div");
-                this.controlContainer.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-                this.mapLayersContainer = document.createElement("div");
-                this.mapLayersContainer.classList.add("mapboxgl-layer-list");
-                this.layerButtonContainer = document.createElement("div");
-                this.layerButtonContainer.classList.add("mapboxgl-layer-switcher");
-                this.layerButton = document.createElement("button");
-                this.layerButton.type = "button";
-                this.layerButton.classList.add("mapboxgl-ctrl-icon");
-                this.layerButton.classList.add("mapboxgl-layer-switcher-icon");
-                this.layerButton.addEventListener("click", event => {
-                    if (this.events && this.events.onSelect && this.events.onSelect(event)) {
-                        return;
-                    }
-                    if (this.mapLayersContainer.style.display === "none") {
-                        this.openModal();
-                    } else {
-                        this.closeModal();
-                    }
-                });
-                this.layerButtonContainer.appendChild(this.layerButton);
-                this.controlContainer.appendChild(this.layerButtonContainer);
-                document.addEventListener("click", this.onDocumentClick);
-                for (const layer of this.layers) {
-                    const layerElement = document.createElement("button");
-                    layerElement.type = "button";
-                    layerElement.innerText = layer.title;
-                    layerElement.classList.add(layer.title.replace(/[^a-z0-9-]/gi, '_'));
-                    layerElement.dataset.layerIds = JSON.stringify(layer.layerIds);
-                    layerElement.addEventListener("click", event => {
-                        const srcElement = event.srcElement;
-                        console.log(srcElement.dataset)
-                        if (srcElement.classList.contains("active")) {
-                            srcElement.classList.remove("active");
-                            let layerIds = JSON.parse(srcElement.dataset.layerIds);
-                            for (const layerId of layerIds) {
-                                map.setLayoutProperty(
-                                    layerId,
-                                    'visibility',
-                                    'none'
-                                );
-                            }
-                        } else {
-                            srcElement.classList.add("active");
-                            let layerIds = JSON.parse(srcElement.dataset.layerIds);
-                            for (const layerId of layerIds) {
-                                map.setLayoutProperty(
-                                    layerId,
-                                    'visibility',
-                                    'visible'
-                                );
-                            }
-                        }
-                    });
-                    // if (layer.title === this.defaultStyle) {
-                    layerElement.classList.add("active");
-                    // }
-                    this.mapLayersContainer.appendChild(layerElement);
-                }
-                this.controlContainer.appendChild(this.mapLayersContainer);
-                this.closeModal();
-                return this.controlContainer;
-            }
-            onRemove() {
-                if (!this.controlContainer || !this.controlContainer.parentNode || !this.map || !this.layerButton) {
-                    return;
-                }
-                this.layerButton.removeEventListener("click", this.onDocumentClick);
-                this.controlContainer.parentNode.removeChild(this.controlContainer);
-                document.removeEventListener("click", this.onDocumentClick);
-                this.map = undefined;
-            }
-            closeModal() {
-                if (this.mapLayersContainer && this.layerButton) {
-                    this.layerButton.style.display = "block";
-                    this.mapLayersContainer.style.display = "none";
-                }
-            }
-            openModal() {
-                if (this.mapLayersContainer && this.layerButton) {
-                    this.layerButton.style.display = "block";
-                    this.mapLayersContainer.style.display = "block";
-                }
-            }
-        }
-        LayerSwitcherControl.LAYERS = [
-            { title: "States", layerIds: ["States"] },
-            { title: "Towns", layerIds: ["Town names", "Capitals"] }
-        ];
+                "color": "white",
 
-        map.addControl(new LayerSwitcherControl());
-        map.addControl(new AccessTokenControl());
+                "high-color": "#add8e6",
 
-                map.on("click", ["Town names", "Capitals", "clickable"], (e) => {
-            const feature = e.features[0];
+                "space-color": "#367ab9",
 
-            // Ignore features which are not shown
-            if (feature.layer.paint["icon-opacity"] == 0) return;
+                "star-intensity": 1
 
-            const kankaAccessToken = localStorage.getItem(KANKA_ACCESS_TOKEN_KEY);
+            });
 
-            if (!kankaAccessToken) {
-                createLocationPopup(feature);
-                return;
-            }
-
-            fetch(
-                "https://api.kanka.io/1.0/campaigns/196997/entities?" +
-                new URLSearchParams({
-                    types: "location",
-                    name: feature.properties.Burg
-                }),
-                {
-                    method: "GET",
-                    headers: {
-                        "Accept": "application/json",
-                        "Authorization": `Bearer ${kankaAccessToken}`
-                    }
-                }
-            )
-                .then(async (res) => {
-                    if (!res.ok) {
-                        const errorText = await res.text();
-                        console.error("Kanka API error:", res.status, errorText);
-                        throw new Error(`Kanka API returned status ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(async (data) => {
-                    console.log("Kanka response:", data);
-
-                    if (data.data && data.data.length > 0) {
-                        const entity = data.data[0];
-                        let imageUrl = entity.image_full || entity.image_thumb || null;
-
-                        // Kanka also exposes the entity image through a dedicated endpoint.
-                        // Use it as the preferred/fallback source because image_thumb can be null.
-                        try {
-                            const imageResponse = await fetch(
-                                `https://api.kanka.io/1.0/campaigns/196997/entities/${entity.id}/image`,
-                                {
-                                    method: "GET",
-                                    headers: {
-                                        "Accept": "application/json",
-                                        "Authorization": `Bearer ${kankaAccessToken}`
-                                    }
-                                }
-                            );
-
-                            if (imageResponse.ok) {
-                                const imageData = await imageResponse.json();
-                                console.log("Kanka image response:", imageData);
-                                imageUrl = imageData.image?.full || imageData.image?.thumbnail || imageUrl;
-                            } else {
-                                console.warn("Kanka image endpoint returned:", imageResponse.status);
-                            }
-                        } catch (imageError) {
-                            console.warn("Could not fetch Kanka entity image:", imageError);
-                        }
-
-                        createLocationPopup(
-                            feature,
-                            entity.urls?.view,
-                            imageUrl
-                        );
-                    } else {
-                        createLocationPopup(feature);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error fetching Kanka entity:", error);
-                    createLocationPopup(feature);
-                });
         });
 
-        function createLocationPopup(feature, link, imageThumb) {
-            let html;
 
-            if (link != null) {
-                html = `
-                    <a href="${link}" target="_blank" rel="noopener noreferrer">
-                        <h3>${feature.properties.Burg}</h3>
-                    </a>
-                    ${imageThumb ? `<p><img src="${imageThumb}" alt="${feature.properties.Burg}" style="max-width:100%;height:auto;"></p>` : ""}
-                    <p>${feature.properties.Population}</p>
-                    <p>${feature.properties.State}</p>
-                    <p>${feature.properties.Culture}</p>
-                `;
-            } else {
-                html = `
-                    <h3>${feature.properties.Burg}</h3>
-                    <p>${feature.properties.Population}</p>
-                    <p>${feature.properties.State}</p>
-                    <p>${feature.properties.Culture}</p>
-                `;
+        /* =========================================================
+           KANKA TOKEN BUTTON
+           ========================================================= */
+
+        class AccessTokenControl {
+
+
+            onAdd(map) {
+
+                this._map = map;
+
+
+                this._container =
+                    document.createElement("div");
+
+
+                this._container.className =
+                    "mapboxgl-ctrl mapboxgl-ctrl-group";
+
+
+                const buttonContainer =
+                    document.createElement("button");
+
+
+                buttonContainer.className =
+                    "mapboxgl-ctrl-set-token";
+
+
+                buttonContainer.type =
+                    "button";
+
+
+                buttonContainer.ariaLabel =
+                    "Set token";
+
+
+                const iconContainer =
+                    document.createElement("span");
+
+
+                iconContainer.className =
+                    "mapboxgl-ctrl-icon";
+
+
+                iconContainer.title =
+                    "Set Kanka token";
+
+
+                buttonContainer.appendChild(
+                    iconContainer
+                );
+
+
+                buttonContainer.addEventListener(
+                    "click",
+                    () => {
+
+                        const token =
+                            prompt(
+                                "Enter Kanka access token"
+                            );
+
+
+                        if (token) {
+
+                            localStorage.setItem(
+                                KANKA_ACCESS_TOKEN_KEY,
+                                token
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                    Zorg dat de token in dit bestand
+                    de oude token in localStorage vervangt.
+                */
+
+                if (AccessTokenControl.DEFAULT_TOKEN) {
+
+                    localStorage.setItem(
+
+                        KANKA_ACCESS_TOKEN_KEY,
+
+                        AccessTokenControl.DEFAULT_TOKEN
+
+                    );
+
+                }
+
+
+                this._container.appendChild(
+                    buttonContainer
+                );
+
+
+                return this._container;
+
             }
 
-            new mapboxgl.Popup({ offset: [0, -15] })
-                .setLngLat(feature.geometry.coordinates)
+
+            onRemove() {
+
+                if (
+                    this._container &&
+                    this._container.parentNode
+                ) {
+
+                    this._container.parentNode.removeChild(
+                        this._container
+                    );
+
+                }
+
+
+                this._map = undefined;
+
+            }
+
+        }
+
+
+        /*
+            VUL HIER JE HUIDIGE KANKA TOKEN IN.
+
+            Ik zet hem hier bewust niet opnieuw in dit chatbericht.
+        */
+
+        AccessTokenControl.DEFAULT_TOKEN =
+            "";
+
+
+        /* =========================================================
+           LAYER SWITCHER
+           ========================================================= */
+
+        class LayerSwitcherControl {
+
+
+            constructor(layers) {
+
+                this.layers =
+                    layers ||
+                    LayerSwitcherControl.LAYERS;
+
+            }
+
+
+            getDefaultPosition() {
+
+                return "top-right";
+
+            }
+
+
+            onAdd(map) {
+
+                this.map = map;
+
+
+                this.controlContainer =
+                    document.createElement("div");
+
+
+                this.controlContainer.className =
+                    "mapboxgl-ctrl mapboxgl-ctrl-group";
+
+
+                this.mapLayersContainer =
+                    document.createElement("div");
+
+
+                this.mapLayersContainer.classList.add(
+                    "mapboxgl-layer-list"
+                );
+
+
+                this.layerButtonContainer =
+                    document.createElement("div");
+
+
+                this.layerButtonContainer.classList.add(
+                    "mapboxgl-layer-switcher"
+                );
+
+
+                this.layerButton =
+                    document.createElement("button");
+
+
+                this.layerButton.type =
+                    "button";
+
+
+                this.layerButton.classList.add(
+                    "mapboxgl-ctrl-icon"
+                );
+
+
+                this.layerButton.classList.add(
+                    "mapboxgl-layer-switcher-icon"
+                );
+
+
+                this.layerButton.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            this.mapLayersContainer.style.display ===
+                            "none"
+                        ) {
+
+                            this.openModal();
+
+                        } else {
+
+                            this.closeModal();
+
+                        }
+
+                    }
+                );
+
+
+                this.layerButtonContainer.appendChild(
+                    this.layerButton
+                );
+
+
+                this.controlContainer.appendChild(
+                    this.layerButtonContainer
+                );
+
+
+                for (const layer of this.layers) {
+
+
+                    const layerElement =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    layerElement.type =
+                        "button";
+
+
+                    layerElement.innerText =
+                        layer.title;
+
+
+                    layerElement.classList.add(
+                        layer.title.replace(
+                            /[^a-z0-9-]/gi,
+                            "_"
+                        )
+                    );
+
+
+                    layerElement.dataset.layerIds =
+                        JSON.stringify(
+                            layer.layerIds
+                        );
+
+
+                    layerElement.addEventListener(
+                        "click",
+                        (event) => {
+
+
+                            const srcElement =
+                                event.currentTarget;
+
+
+                            const layerIds =
+                                JSON.parse(
+                                    srcElement.dataset.layerIds
+                                );
+
+
+                            if (
+                                srcElement.classList.contains(
+                                    "active"
+                                )
+                            ) {
+
+                                srcElement.classList.remove(
+                                    "active"
+                                );
+
+
+                                for (
+                                    const layerId of layerIds
+                                ) {
+
+                                    map.setLayoutProperty(
+                                        layerId,
+                                        "visibility",
+                                        "none"
+                                    );
+
+                                }
+
+                            } else {
+
+                                srcElement.classList.add(
+                                    "active"
+                                );
+
+
+                                for (
+                                    const layerId of layerIds
+                                ) {
+
+                                    map.setLayoutProperty(
+                                        layerId,
+                                        "visibility",
+                                        "visible"
+                                    );
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+
+                    layerElement.classList.add(
+                        "active"
+                    );
+
+
+                    this.mapLayersContainer.appendChild(
+                        layerElement
+                    );
+
+                }
+
+
+                this.controlContainer.appendChild(
+                    this.mapLayersContainer
+                );
+
+
+                this.closeModal();
+
+
+                return this.controlContainer;
+
+            }
+
+
+            onRemove() {
+
+                if (
+                    this.controlContainer &&
+                    this.controlContainer.parentNode
+                ) {
+
+                    this.controlContainer.parentNode.removeChild(
+                        this.controlContainer
+                    );
+
+                }
+
+                this.map = undefined;
+
+            }
+
+
+            closeModal() {
+
+                this.mapLayersContainer.style.display =
+                    "none";
+
+            }
+
+
+            openModal() {
+
+                this.mapLayersContainer.style.display =
+                    "block";
+
+            }
+
+        }
+
+
+        LayerSwitcherControl.LAYERS = [
+
+            {
+                title: "States",
+                layerIds: ["States"]
+            },
+
+            {
+                title: "Towns",
+                layerIds: [
+                    "Town names",
+                    "Capitals"
+                ]
+            }
+
+        ];
+
+
+        map.addControl(
+            new LayerSwitcherControl()
+        );
+
+
+        map.addControl(
+            new AccessTokenControl()
+        );
+
+
+        /* =========================================================
+           KANKA LOCATION CLICK
+           ========================================================= */
+
+        map.on(
+
+            "click",
+
+            [
+                "Town names",
+                "Capitals",
+                "clickable"
+            ],
+
+            async (e) => {
+
+
+                const feature =
+                    e.features[0];
+
+
+                if (!feature) {
+                    return;
+                }
+
+
+                /*
+                    Niet reageren wanneer het
+                    symbool verborgen is.
+                */
+
+                if (
+                    feature.layer.paint &&
+                    feature.layer.paint[
+                        "icon-opacity"
+                    ] === 0
+                ) {
+
+                    return;
+
+                }
+
+
+                const kankaAccessToken =
+                    localStorage.getItem(
+                        KANKA_ACCESS_TOKEN_KEY
+                    );
+
+
+                if (!kankaAccessToken) {
+
+                    createLocationPopup(
+                        feature
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+
+                    /* =========================
+                       1. Zoek de entity
+                       ========================= */
+
+                    const entityResponse =
+                        await fetch(
+
+                            "https://api.kanka.io/1.0/campaigns/196997/entities?" +
+
+                            new URLSearchParams({
+
+                                types:
+                                    "location",
+
+                                name:
+                                    feature.properties.Burg
+
+                            }),
+
+                            {
+
+                                method: "GET",
+
+                                headers: {
+
+                                    "Accept":
+                                        "application/json",
+
+                                    "Authorization":
+                                        `Bearer ${kankaAccessToken}`
+
+                                }
+
+                            }
+
+                        );
+
+
+                    if (!entityResponse.ok) {
+
+                        const errorText =
+                            await entityResponse.text();
+
+
+                        console.error(
+                            "Kanka entity API error:",
+                            entityResponse.status,
+                            errorText
+                        );
+
+
+                        throw new Error(
+                            `Kanka entity request returned ${entityResponse.status}`
+                        );
+
+                    }
+
+
+                    const entityData =
+                        await entityResponse.json();
+
+
+                    console.log(
+                        "Kanka entity response:",
+                        entityData
+                    );
+
+
+                    if (
+                        !entityData.data ||
+                        entityData.data.length === 0
+                    ) {
+
+                        createLocationPopup(
+                            feature
+                        );
+
+                        return;
+
+                    }
+
+
+                    const entity =
+                        entityData.data[0];
+
+
+                    console.log(
+                        "Kanka entity:",
+                        entity
+                    );
+
+
+                    /*
+                        Dit is de belangrijke ID.
+
+                        entity.id is de algemene
+                        entity-ID.
+
+                        child_id is de echte
+                        location-ID.
+                    */
+
+                    const locationId =
+                        entity.child_id;
+
+
+                    if (!locationId) {
+
+                        console.warn(
+                            "Kanka entity heeft geen child_id:",
+                            entity
+                        );
+
+
+                        createLocationPopup(
+
+                            feature,
+
+                            entity.urls?.view
+
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /* =========================
+                       2. Haal de echte location op
+                       ========================= */
+
+                    const locationResponse =
+                        await fetch(
+
+                            `https://api.kanka.io/1.0/campaigns/196997/locations/${locationId}`,
+
+                            {
+
+                                method: "GET",
+
+                                headers: {
+
+                                    "Accept":
+                                        "application/json",
+
+                                    "Authorization":
+                                        `Bearer ${kankaAccessToken}`
+
+                                }
+
+                            }
+
+                        );
+
+
+                    if (!locationResponse.ok) {
+
+                        const errorText =
+                            await locationResponse.text();
+
+
+                        console.error(
+                            "Kanka location API error:",
+                            locationResponse.status,
+                            errorText
+                        );
+
+
+                        throw new Error(
+                            `Kanka location request returned ${locationResponse.status}`
+                        );
+
+                    }
+
+
+                    const locationData =
+                        await locationResponse.json();
+
+
+                    const location =
+                        locationData.data;
+
+
+                    console.log(
+                        "Kanka location:",
+                        location
+                    );
+
+
+                    /*
+                        Gebruik eerst full image.
+
+                        Als die niet bestaat:
+                        gebruik thumbnail.
+                    */
+
+                    const imageUrl =
+
+                        location.image_full ||
+
+                        location.image_thumb ||
+
+                        null;
+
+
+                    console.log(
+                        "Kanka location image URL:",
+                        imageUrl
+                    );
+
+
+                    createLocationPopup(
+
+                        feature,
+
+                        entity.urls?.view,
+
+                        imageUrl
+
+                    );
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        "Error loading Kanka location:",
+                        error
+                    );
+
+
+                    createLocationPopup(
+                        feature
+                    );
+
+                }
+
+            }
+
+        );
+
+
+        /* =========================================================
+           POPUP
+           ========================================================= */
+
+        function createLocationPopup(
+            feature,
+            link,
+            imageUrl
+        ) {
+
+
+            const name =
+                feature.properties.Burg || "";
+
+
+            const population =
+                feature.properties.Population || "";
+
+
+            const state =
+                feature.properties.State || "";
+
+
+            const culture =
+                feature.properties.Culture || "";
+
+
+            /* afbeelding */
+
+            const imageHtml =
+                imageUrl
+                    ? `
+                        <div class="location-popup-image-wrapper">
+
+                            <img
+                                class="location-popup-image"
+                                src="${imageUrl}"
+                                alt="${name}"
+                            >
+
+                        </div>
+                    `
+                    : "";
+
+
+            /* titel */
+
+            const titleHtml =
+                link
+                    ? `
+                        <h3 class="location-popup-title">
+
+                            <a
+                                href="${link}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                ${name}
+                            </a>
+
+                        </h3>
+                    `
+                    : `
+                        <h3 class="location-popup-title">
+                            ${name}
+                        </h3>
+                    `;
+
+
+            /* tags */
+
+            const tagsHtml =
+                state || culture
+                    ? `
+                        <div class="location-popup-tags">
+
+                            ${
+                                state
+                                    ? `
+                                        <span class="location-popup-tag">
+                                            ${state}
+                                        </span>
+                                    `
+                                    : ""
+                            }
+
+                            ${
+                                culture
+                                    ? `
+                                        <span class="location-popup-tag">
+                                            ${culture}
+                                        </span>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+                    `
+                    : "";
+
+
+            /* info */
+
+            const populationHtml =
+                population
+                    ? `
+                        <div class="location-popup-row">
+
+                            <span class="location-popup-label">
+                                Population
+                            </span>
+
+                            <span class="location-popup-value">
+                                ${population}
+                            </span>
+
+                        </div>
+                    `
+                    : "";
+
+
+            const html = `
+
+                ${imageHtml}
+
+                <div class="location-popup-content">
+
+                    ${titleHtml}
+
+                    ${tagsHtml}
+
+                    <div class="location-popup-info">
+
+                        ${populationHtml}
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            new mapboxgl.Popup({
+
+                offset: [0, -15],
+
+                maxWidth: "320px"
+
+            })
+
+                .setLngLat(
+                    feature.geometry.coordinates
+                )
+
                 .setHTML(html)
+
                 .addTo(map);
+
         }
 
     </script>
+
 </body>
 
 </html>

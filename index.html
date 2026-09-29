@@ -76,7 +76,6 @@
     <div id="map"></div>
     <script>
 const KANKA_ACCESS_TOKEN_KEY = "kankaAccessToken";
-        // kanka access: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGQzZWZiOTFhN2YzNzZkNjU0ZjE3NTQ5YWVkMGUxOTlhODEwZWY4ZjYyOWRkNGE3ZDQxOGRhMDhkMzc2NWExZGExMzNlMjFiYzlhODQ2MTAiLCJpYXQiOjE3NTUwODE1NDYuMDc0ODg3LCJuYmYiOjE3NTUwODE1NDYuMDc0ODkxLCJleHAiOjE3ODY2MTc1NDYuMDY1NDY2LCJzdWIiOiIyMDE2NTAiLCJzY29wZXMiOltdfQ.zGohWe3obugmAZh1D-gs_LZQMrtaGg0d6kbPAhNKLWLHd5PLKw81OPkWIsCtce9RDO4KoNoKGC42N13xzBRGb5DKuViz0fTByiHwo6A4ek75O_SLg_5YM8bbC0ymEZkPDpyWihx7MkeBBm6lYqNN-0ZtE6lsY_9x7ubirSh4yGOhY9c-S7kymYMsdDLMM_WxudTFLxKjxnrRkfD3bRDJCaRy0zUhqHwnMDQTb62tTQYZH3J4JT3s5G5hsWhRbieA0D1YXLROb7EQMaA0IyW19ICpEFJPBWcFD-PSAsPdalLlBCsz2ziEqz2k0iRQlP_W3nNuFMIVBTBKpc1V3O2stIhIybawWOaO4ikqBselPvZRKkQI9TVozz4y1vSVUy33g75MZAKDs_o1s9T5X2Oie-8nlK1ezfcDMI3mz2vX8sNNdwHVgfnEX2mzTGLbJUKZnzsDmMlW_QQXZl0WgJWfRez9sfingqfaZXNz13yn0nFcDElwOyWkWbFxNTLNuBCkP5EIwliJepAjrmkScHCVn8nGoxW4K92LfznSxL4CU4hqUNI4mztCFz9BI5biambc4ffJvoucQjG2dpu6lr9XdNK51G6xM9x0MMQfp7gKB4l4VZY2gRiAN8V2lM-fthffGxKrvUnpyqIEq4ejVYVQbXPjk4vZZtu8ADHBv2m6EhM
         mapboxgl.accessToken =
             "pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ";
         const map = new mapboxgl.Map({
@@ -281,9 +280,9 @@ const KANKA_ACCESS_TOKEN_KEY = "kankaAccessToken";
                         localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, token);
 }
                 });
-if (!localStorage.getItem(KANKA_ACCESS_TOKEN_KEY)) {
-                    localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, AccessTokenControl.DEFAULT_TOKEN);
-                }
+// Keep localStorage in sync with the token bundled in this file.
+                // This prevents an expired token from an older version from being reused.
+                localStorage.setItem(KANKA_ACCESS_TOKEN_KEY, AccessTokenControl.DEFAULT_TOKEN);
                 this._container.appendChild(buttonContainer);
                 return this._container;
             }
@@ -293,7 +292,7 @@ if (!localStorage.getItem(KANKA_ACCESS_TOKEN_KEY)) {
                 this._map = undefined;
             }
         }
-AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGQzZWZiOTFhN2YzNzZkNjU0ZjE3NTQ5YWVkMGUxOTlhODEwZWY4ZjYyOWRkNGE3ZDQxOGRhMDhkMzc2NWExZGExMzNlMjFiYzlhODQ2MTAiLCJpYXQiOjE3NTUwODE1NDYuMDc0ODg3LCJuYmYiOjE3NTUwODE1NDYuMDc0ODkxLCJleHAiOjE3ODY2MTc1NDYuMDY1NDY2LCJzdWIiOiIyMDE2NTAiLCJzY29wZXMiOltdfQ.zGohWe3obugmAZh1D-gs_LZQMrtaGg0d6kbPAhNKLWLHd5PLKw81OPkWIsCtce9RDO4KoNoKGC42N13xzBRGb5DKuViz0fTByiHwo6A4ek75O_SLg_5YM8bbC0ymEZkPDpyWihx7MkeBBm6lYqNN-0ZtE6lsY_9x7ubirSh4yGOhY9c-S7kymYMsdDLMM_WxudTFLxKjxnrRkfD3bRDJCaRy0zUhqHwnMDQTb62tTQYZH3J4JT3s5G5hsWhRbieA0D1YXLROb7EQMaA0IyW19ICpEFJPBWcFD-PSAsPdalLlBCsz2ziEqz2k0iRQlP_W3nNuFMIVBTBKpc1V3O2stIhIybawWOaO4ikqBselPvZRKkQI9TVozz4y1vSVUy33g75MZAKDs_o1s9T5X2Oie-8nlK1ezfcDMI3mz2vX8sNNdwHVgfnEX2mzTGLbJUKZnzsDmMlW_QQXZl0WgJWfRez9sfingqfaZXNz13yn0nFcDElwOyWkWbFxNTLNuBCkP5EIwliJepAjrmkScHCVn8nGoxW4K92LfznSxL4CU4hqUNI4mztCFz9BI5biambc4ffJvoucQjG2dpu6lr9XdNK51G6xM9x0MMQfp7gKB4l4VZY2gRiAN8V2lM-fthffGxKrvUnpyqIEq4ejVYVQbXPjk4vZZtu8ADHBv2m6EhM";
+AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjdhZWUxZDFlMmY2NzY5NTgxOWQxNzVmMTViMTc1OTQ1NzczOWZiNTAwOGU2NGM4NWVkMjg4NGUxNjU0ZGExZjNjMmI1ZTQ2NDk1ZTQ5MTUiLCJpYXQiOjE3OTA2ODIwOTYuNjg2NzYsIm5iZiI6MTc5MDY4MjA5Ni42ODY3NjEsImV4cCI6MTgyMjIxODA5Ni42ODE0OTMsInN1YiI6IjIwMTY1MCIsInNjb3BlcyI6W119.VzFgAQZcD6U92h1uoLA70gxNZ_14RfHtVTkhe3X4cVxA-haNtGTGH3ULugqmje0EkRSptcJyNglIOlNiKe3qFnGakEp9evGOmnkWbmTYrsgjZEMHFKGfA9HtCKh07ITRZrToAYxK3_u6nm4JWZcK3uSKXNuXwr4C5VQ0OOTulUR20ZSbyvFMaAWH3J9XtFrV5wK1xYmMAqr3T_Wj4FVmk95xZrobz8-SlEOyELS_jdKrtdbvmWnNAZt5PH0Osixn2lSKy3YH7qr_fIRG7R4pdGJNtW14n_lJ5NgJpQ1jI9K7L117CNfpCUaWcGrVatz8m4_aEQwroPEb2pHOK6vZKyAp4zv-Rr5EZYF1Fe1MzpW49rwdWYl6eES5KsYEj0_eGPY9utKrHg73ETyGOkK5DqpYIuo9lpDV9dlZKdWzWbodUngp_rkjTjZCitA9qNgoaqyJOOV6sNlr2vUXS6SNH6jBJC_Hyxntq4uweFbUmcWkrg0eGBH87d7yUg4UX_XbFs4ssNw4jvzEL1LVgQ1pPlSZB1Uhlr5q7tULEVT5NrqTSjz5-NtnxJrgXl2TC0yrLgkObssW4VOB-kFo37eHC13dnhvvNvwxNiH9Ay67z5qzS4LVyh3GN6hAuJsT0dnmm0ShU-Vz5K2HiCAXjZkG0NvzFYQjFh1Tm9FlTR-Qm-w";
 
         class LayerSwitcherControl {
             constructor(layers, options) {
@@ -400,44 +399,84 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
 
                 map.on("click", ["Town names", "Capitals", "clickable"], (e) => {
             const feature = e.features[0];
+
             // Ignore features which are not shown
             if (feature.layer.paint["icon-opacity"] == 0) return;
-            let kankaAccessToken = localStorage.getItem(KANKA_ACCESS_TOKEN_KEY);
-            if (!kankaAccessToken || kankaAccessToken == null) {
+
+            const kankaAccessToken = localStorage.getItem(KANKA_ACCESS_TOKEN_KEY);
+
+            if (!kankaAccessToken) {
                 createLocationPopup(feature);
-            } else {
-                fetch("https://api.kanka.io/1.0/campaigns/196997/entities?" + new URLSearchParams({
-                    types: 'location',
-                    name: `${feature.properties.Burg}`
-                }), {
-                    method: 'GET',
+                return;
+            }
+
+            fetch(
+                "https://api.kanka.io/1.0/campaigns/196997/entities?" +
+                new URLSearchParams({
+                    types: "location",
+                    name: feature.properties.Burg
+                }),
+                {
+                    method: "GET",
                     headers: {
+                        "Accept": "application/json",
                         "Authorization": `Bearer ${kankaAccessToken}`
                     }
+                }
+            )
+                .then(async (res) => {
+                    if (!res.ok) {
+                        const errorText = await res.text();
+                        console.error("Kanka API error:", res.status, errorText);
+                        throw new Error(`Kanka API returned status ${res.status}`);
+                    }
+                    return res.json();
                 })
-                    .then((res) => res.json())
-                    .then(data => {
-                        if (data.data != null && data.data.length > 0) {
-                            createLocationPopup(feature, data.data[0].urls.view, data.image_thumb);
-                        } else {
-                            createLocationPopup(feature);
-                        }
-                    });
-            }
+                .then((data) => {
+                    console.log("Kanka response:", data);
+
+                    if (data.data && data.data.length > 0) {
+                        const entity = data.data[0];
+                        createLocationPopup(
+                            feature,
+                            entity.urls?.view,
+                            entity.image_thumb
+                        );
+                    } else {
+                        createLocationPopup(feature);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching Kanka entity:", error);
+                    createLocationPopup(feature);
+                });
         });
 
-       function createLocationPopup(feature, link, data) {
+        function createLocationPopup(feature, link, imageThumb) {
             let html;
+
             if (link != null) {
-                html = `<a href="${link}" target="_blank"><h3>${feature.properties.Burg}</h3></a><p><p><img src="(${data.image_thumb})"></p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+                html = `
+                    <a href="${link}" target="_blank" rel="noopener noreferrer">
+                        <h3>${feature.properties.Burg}</h3>
+                    </a>
+                    ${imageThumb ? `<p><img src="${imageThumb}" alt="${feature.properties.Burg}" style="max-width:100%;height:auto;"></p>` : ""}
+                    <p>${feature.properties.Population}</p>
+                    <p>${feature.properties.State}</p>
+                    <p>${feature.properties.Culture}</p>
+                `;
             } else {
-                html = `<h3>${feature.properties.Burg}</h3><p>${feature.properties.Population}</p><p>${feature.properties.State}</p><p>${feature.properties.Culture}</p>`
+                html = `
+                    <h3>${feature.properties.Burg}</h3>
+                    <p>${feature.properties.Population}</p>
+                    <p>${feature.properties.State}</p>
+                    <p>${feature.properties.Culture}</p>
+                `;
             }
-            const popup = new mapboxgl.Popup({ offset: [0, -15] })
+
+            new mapboxgl.Popup({ offset: [0, -15] })
                 .setLngLat(feature.geometry.coordinates)
-                .setHTML(
-                    html
-                )
+                .setHTML(html)
                 .addTo(map);
         }
 

@@ -432,15 +432,42 @@ AccessTokenControl.DEFAULT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQ
                     }
                     return res.json();
                 })
-                .then((data) => {
+                .then(async (data) => {
                     console.log("Kanka response:", data);
 
                     if (data.data && data.data.length > 0) {
                         const entity = data.data[0];
+                        let imageUrl = entity.image_full || entity.image_thumb || null;
+
+                        // Kanka also exposes the entity image through a dedicated endpoint.
+                        // Use it as the preferred/fallback source because image_thumb can be null.
+                        try {
+                            const imageResponse = await fetch(
+                                `https://api.kanka.io/1.0/campaigns/196997/entities/${entity.id}/image`,
+                                {
+                                    method: "GET",
+                                    headers: {
+                                        "Accept": "application/json",
+                                        "Authorization": `Bearer ${kankaAccessToken}`
+                                    }
+                                }
+                            );
+
+                            if (imageResponse.ok) {
+                                const imageData = await imageResponse.json();
+                                console.log("Kanka image response:", imageData);
+                                imageUrl = imageData.image?.full || imageData.image?.thumbnail || imageUrl;
+                            } else {
+                                console.warn("Kanka image endpoint returned:", imageResponse.status);
+                            }
+                        } catch (imageError) {
+                            console.warn("Could not fetch Kanka entity image:", imageError);
+                        }
+
                         createLocationPopup(
                             feature,
                             entity.urls?.view,
-                            entity.image_thumb
+                            imageUrl
                         );
                     } else {
                         createLocationPopup(feature);

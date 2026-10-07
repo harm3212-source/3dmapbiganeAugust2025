@@ -1,0 +1,1853 @@
+{
+  "version": 8,
+  "name": "Bigane world 2.0",
+  "metadata": {
+    "mapbox:autocomposite": true,
+    "mapbox:type": "template",
+    "mapbox:sdk-support": {
+      "js": "3.0.0",
+      "android": "11.0.0",
+      "ios": "11.0.0"
+    },
+    "mapbox:groups": {
+      "35b2344e683ce5759691e5fdf193f26e": {
+        "name": "Rivers",
+        "collapsed": false
+      },
+      "2d6f0d1f88261ed1ba3fedc2c483c793": {
+        "name": "lakes",
+        "collapsed": false
+      },
+      "43fc029a1fe950a0494e43bb4c1a6193": {
+        "name": "Routes",
+        "collapsed": false
+      },
+      "94c40ede28e66b22bf3b82d136e30a37": {
+        "name": "Burgs",
+        "collapsed": false
+      },
+      "b1d4fd471b7c5874ad1ab43ff2bdebc3": {
+        "name": "States",
+        "collapsed": false
+      },
+      "fd28853b3d82dda49bf4f50abadc9ae4": {
+        "name": "Rivers",
+        "collapsed": false
+      },
+      "Place labels, place-labels": {
+        "collapsed": false,
+        "name": "Place labels, place-labels"
+      }
+    },
+    "mapbox:uiParadigm": "global",
+    "mapbox:trackposition": false,
+    "mapbox:thumb": "data:image/webp;base64,UklGRtoDAABXRUJQVlA4TM4DAAAvO8AOAI/kOJIkR6nqObQGA/jjv3Ga0z44jiTJUbIGrcEMTMF/K/gT/C7OQSRJilS1cM/ML+D9q2Po+SebtNmTtHcsLEKSBFFIfz9ZRwRIgkyQREAgWjAJEMSKFpwQIEiiQLT9lUFtOslgsiKj1RmL5jKVAcoUt9eGGgOppkgFAZGpTEnQ432zO6yYFrtGIkD0c75tmawwQLUpMoV0vE8tdoOlrl3QTBfFb/ux2DdOZ7LAH5pMIRlIWfD9xe48V9uCS5h+y08r1stE7Qt34YBpmg3af/Xs7uZKIBAIAqEFw+gRppyB4GB2AdECghXtGt9v1cL9c6CQaG17IUlrtjLW2hyvZ23bttp2l7aneoe33IhqLuBP/oj+O3AbSZG6l+mq66rhDf5eRIJ+RMQeFPE+P46gF07kgOvjgUnoKIZEI2JhFQeouhF7WZ+VyaIkcuU9o5HhwwLh7PSvLCccCuqT+5KnEAnVNAPMMAUD6fMT9i3igSaIZ3oA9MKVZKkSOf8dkctaVwdW1fY9ChAf+onP78Nu4kOiZVO5ZcPGdbsOHd69Zq1ev2r1uk0SaKWSOTh55cuci/qzGvVv3qKUQuwWYbGnC2k+9qRRty1TW1j/dWd0y2ZYZke5gzMA4g+dW3BMo1opK42GCQszgxI1p6+5tqoU8z+zALpYUeje2Cb2O3Sbca1aKZdOxBER0qpU0+6MtJI0vmDXiplENBIGAKUTWKzZCxOSEi341DFKmUTraHEJwhCJZ0qG8yLIQscrtamGWcklIn9xqbVBBZFETpuNaTlPX60bhXS0iXWxZa333j28/+j52S1CoiTtFvhoV/OJSNMQOjySeHDv8d1AG0WCst7z36pk4+EloNhiOJapWP/3MxoWZz4fcc1yNhYGgCXo9HimbLpHGeRwNjbVsnh4EZaolm3aMYYOOW/ubZ60NosAVKtYjX3CpYr4MfDJruYSEfp55P3Xb9+f+aTU+Ot1o5CKUlfQH36//XF5ayc+emFjPnrSbdMkZW3XJJ6Sk0jBl45RzMQpi8JM0XBehSR1p8l5q1bMJOk5aM1PEz56edR1vi33U4lYXCOkVHN1L9C7OBGibfutWcuoFHJZyIAqaMOavd0vscENXJyn17r5S/1y+8+J1+6/9hqr3DfTHdCIv4/6I0RAXqHTN/80XAStzgzyNlnB7hY4eBwPgHejk5dDCoNVJNKnmi45FPWtKCqJt0CBbb2yIyR9/pXnZIQSPqxQnRG/p6ddLOmJ9zI5KAXI1YJzpFSBEf9wZ8+TmolEqrDBc1w4wh0k4X0BAQ=="
+  },
+  "center": [
+    0,
+    2.842170943040401e-14
+  ],
+  "zoom": 0.7895336245123687,
+  "bearing": 0,
+  "pitch": 0,
+  "lights": [
+    {
+      "id": "directional",
+      "type": "directional",
+      "properties": {
+        "cast-shadows": true
+      }
+    },
+    {
+      "id": "flat",
+      "type": "flat",
+      "properties": {
+        "color": "hsl(0, 0%, 100%)",
+        "anchor": "map"
+      }
+    }
+  ],
+  "terrain": null,
+  "fog": {
+    "color": "#ffffff",
+    "horizon-blend": [
+      "interpolate",
+      [
+        "linear"
+      ],
+      [
+        "zoom"
+      ],
+      4,
+      0,
+      7,
+      0
+    ],
+    "range": [
+      10,
+      10
+    ],
+    "star-intensity": [
+      "interpolate",
+      [
+        "linear"
+      ],
+      [
+        "zoom"
+      ],
+      5,
+      0.35,
+      6,
+      0
+    ],
+    "space-color": [
+      "interpolate",
+      [
+        "linear"
+      ],
+      [
+        "zoom"
+      ],
+      4,
+      "#010b19",
+      7,
+      "#367ab9"
+    ]
+  },
+  "sources": {
+    "composite": {
+      "type": "vector",
+      "url": "https://api.mapbox.com/v4/fitzchevalric.8h5heyjd,fitzchevalric.755feu6p,fitzchevalric.3hdrkxoo,fitzchevalric.bquk9llc,fitzchevalric.0fpkx97d,fitzchevalric.32hzqex2,fitzchevalric.8iog1np4,fitzchevalric.4lcpzj0z,fitzchevalric.dllcnwai,fitzchevalric.bfvulqd4,fitzchevalric.az3domzu,fitzchevalric.b47np1zn,fitzchevalric.4davn6jb.json?secure&access_token=pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ"
+    }
+  },
+  "sprite": "https://api.mapbox.com/styles/v1/fitzchevalric/clmj7x4rt01oz01r4h0j07f13/af3n0lg65wanst1z5p4f92p8a/sprite?access_token=pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ",
+  "glyphs": "https://api.mapbox.com/fonts/v1/mapbox/{fontstack}/{range}.pbf?access_token=pk.eyJ1IjoiZml0emNoZXZhbHJpYyIsImEiOiJjazdzdXYzazUwazk0M2VtcnJ0N3BkZzY4In0.agcwn8WbpxmAVcXzzaXbsQ",
+  "projection": {
+    "name": "globe"
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {},
+      "paint": {
+        "background-color": "hsl(197, 100%, 86%)"
+      }
+    },
+    {
+      "id": "Sandwich",
+      "type": "fill",
+      "source": "composite",
+      "source-layer": "BiomesBigane2-7auf3g",
+      "minzoom": 2,
+      "paint": {
+        "fill-color": [
+          "get",
+          "Color"
+        ]
+      }
+    },
+    {
+      "id": "Biomes",
+      "type": "fill",
+      "source": "composite",
+      "source-layer": "BiomesBigane2-7auf3g",
+      "minzoom": 2,
+      "paint": {
+        "fill-color": [
+          "get",
+          "Color"
+        ],
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3.5,
+          0.1,
+          10,
+          0.3
+        ],
+        "fill-pattern": [
+          "match",
+          [
+            "get",
+            "Biome"
+          ],
+          [
+            "Tundra"
+          ],
+          "seamless_texture",
+          [
+            "Grassland"
+          ],
+          "seamless_texture_2",
+          [
+            "Glacier"
+          ],
+          "seamless_texture_3",
+          [
+            "Cold desert",
+            "Hot desert"
+          ],
+          "seamless_texture_4",
+          [
+            "Temperate rainforest",
+            "Tropical seasonal forest",
+            "Temperate deciduous forest"
+          ],
+          "seamless_texture_5",
+          [
+            "Tropical rainforest",
+            "Deep Wood"
+          ],
+          "seamless_texture_6",
+          [
+            "Taiga"
+          ],
+          "seamless_texture_7",
+          [
+            "Wetland"
+          ],
+          "seamless_texture_9_mirrored",
+          [
+            "Savanna"
+          ],
+          "seamless_texture_10_mirrored",
+          ""
+        ],
+        "fill-emissive-strength": 1
+      }
+    },
+    {
+      "id": "biomesbigane2-7auf3g",
+      "type": "fill-extrusion",
+      "source": "composite",
+      "source-layer": "BiomesBigane2-7auf3g",
+      "minzoom": 6,
+      "filter": [
+        "match",
+        [
+          "get",
+          "Biome"
+        ],
+        [
+          "Temperate rainforest",
+          "Deep Wood",
+          "Tropical rainforest",
+          "Tropical seasonal forest",
+          "Temperate deciduous forest"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "fill-extrusion-edge-radius": 1,
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-extrusion-pattern": [
+          "match",
+          [
+            "get",
+            "Biome"
+          ],
+          [
+            "Tundra"
+          ],
+          "seamless_texture",
+          [
+            "Grassland"
+          ],
+          "seamless_texture_2",
+          [
+            "Glacier"
+          ],
+          "seamless_texture_3",
+          [
+            "Cold desert",
+            "Hot desert"
+          ],
+          "seamless_texture_4",
+          [
+            "Temperate rainforest",
+            "Tropical seasonal forest",
+            "Temperate deciduous forest"
+          ],
+          "seamless_texture_5",
+          [
+            "Tropical rainforest",
+            "Deep Wood"
+          ],
+          "seamless_texture_6",
+          [
+            "Taiga"
+          ],
+          "seamless_texture_7",
+          [
+            "Wetland"
+          ],
+          "seamless_texture_9_mirrored",
+          [
+            "Savanna"
+          ],
+          "seamless_texture_10_mirrored",
+          ""
+        ],
+        "fill-extrusion-height-alignment": "terrain",
+        "fill-extrusion-flood-light-intensity": 0.3,
+        "fill-extrusion-ambient-occlusion-intensity": 0.3,
+        "fill-extrusion-opacity": 0.5,
+        "fill-extrusion-height": [
+          "match",
+          [
+            "get",
+            "Biome"
+          ],
+          [
+            "Temperate rainforest",
+            "Tropical rainforest",
+            "Deep Wood"
+          ],
+          6000,
+          3000
+        ]
+      }
+    },
+    {
+      "id": "Simple biome",
+      "type": "fill",
+      "source": "composite",
+      "source-layer": "SimpleBiomeBigane2-6ntl9z",
+      "paint": {
+        "fill-color": [
+          "get",
+          "Color"
+        ],
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          1,
+          3.4,
+          1,
+          3.5,
+          0
+        ],
+        "fill-pattern": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "Biome"
+            ],
+            ""
+          ],
+          "",
+          ""
+        ]
+      }
+    },
+    {
+      "id": "States",
+      "type": "fill",
+      "source": "composite",
+      "source-layer": "StatesBigane2-1rnkj4",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": [
+          "get",
+          "Color"
+        ],
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "Rivers",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "35b2344e683ce5759691e5fdf193f26e"
+      },
+      "source": "composite",
+      "source-layer": "Bigane_world_Rivers_2023-10-1-a43cyc",
+      "layout": {
+        "line-join": "round",
+        "line-round-limit": 1.5,
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "name"
+          ],
+          [
+            "Ibia"
+          ],
+          "hsl(360, 97%, 33%)",
+          [
+            "Saman"
+          ],
+          "hsl(0, 97%, 33%)",
+          [
+            "Ekork"
+          ],
+          "hsl(0, 97%, 33%)",
+          [
+            "Till",
+            "Rock Till",
+            "Soil Till",
+            "Toll Till",
+            "Mud Till",
+            "Morrunpe"
+          ],
+          "hsl(0, 97%, 33%)",
+          "hsl(197, 100%, 86%)"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          [
+            "min",
+            [
+              "*",
+              [
+                "/",
+                [
+                  "get",
+                  "width"
+                ],
+                27
+              ],
+              100
+            ],
+            1
+          ],
+          3,
+          [
+            "min",
+            [
+              "*",
+              [
+                "/",
+                [
+                  "get",
+                  "width"
+                ],
+                27
+              ],
+              100
+            ],
+            3
+          ],
+          5,
+          [
+            "max",
+            [
+              "min",
+              [
+                "*",
+                [
+                  "/",
+                  [
+                    "get",
+                    "width"
+                  ],
+                  27
+                ],
+                100
+              ],
+              15
+            ],
+            3
+          ],
+          22,
+          [
+            "max",
+            [
+              "min",
+              [
+                "*",
+                [
+                  "/",
+                  [
+                    "get",
+                    "width"
+                  ],
+                  27
+                ],
+                100
+              ],
+              15
+            ],
+            5
+          ]
+        ],
+        "line-blur": 1
+      }
+    },
+    {
+      "id": "River names",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "35b2344e683ce5759691e5fdf193f26e"
+      },
+      "source": "composite",
+      "source-layer": "Bigane_world_Rivers_2023-10-1-a43cyc",
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": [
+          "get",
+          "name"
+        ],
+        "text-pitch-alignment": "viewport"
+      },
+      "paint": {
+        "text-halo-color": "rgb(255, 255, 255)",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-translate": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "Ocean",
+      "type": "fill",
+      "source": "composite",
+      "source-layer": "Ocean2-6vbsfw",
+      "layout": {},
+      "paint": {
+        "fill-color": "hsl(197, 100%, 86%)"
+      }
+    },
+    {
+      "id": "lakes",
+      "type": "fill",
+      "metadata": {
+        "mapbox:group": "2d6f0d1f88261ed1ba3fedc2c483c793"
+      },
+      "source": "composite",
+      "source-layer": "LakesBigane2-2k2fpk",
+      "layout": {},
+      "paint": {
+        "fill-color": [
+          "match",
+          [
+            "get",
+            "lake_name_firstcell_Bigane_lake_names"
+          ],
+          [
+            "Yozkuy",
+            "Lacunar",
+            "Raulorum"
+          ],
+          "hsl(0, 97%, 33%)",
+          "hsl(197, 100%, 86%)"
+        ]
+      }
+    },
+    {
+      "id": "Lakes names",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "2d6f0d1f88261ed1ba3fedc2c483c793"
+      },
+      "source": "composite",
+      "source-layer": "LakeNamesDataCentroids-c3f8ek",
+      "layout": {
+        "text-field": [
+          "concat",
+          "Lake ",
+          [
+            "to-string",
+            [
+              "get",
+              "lake_name_firstcell_Bigane_lake_names"
+            ]
+          ]
+        ],
+        "text-anchor": "bottom",
+        "text-pitch-alignment": "viewport",
+        "symbol-z-elevate": true,
+        "text-ignore-placement": true,
+        "text-allow-overlap": true,
+        "text-radial-offset": 1,
+        "text-font": [
+          "Roboto Italic",
+          "Arial Unicode MS Regular"
+        ]
+      },
+      "paint": {
+        "text-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0,
+          6,
+          0,
+          6.5,
+          0.8
+        ]
+      }
+    },
+    {
+      "id": "Trails",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "Bigane_world_Routes_2023-09-1-0c11cn",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "trails"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "line-color": "hsl(37, 0%, 100%)",
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0,
+          6,
+          [
+            "match",
+            [
+              "get",
+              "type"
+            ],
+            [
+              "trails"
+            ],
+            1,
+            0
+          ]
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "id": "Trail 7000 black",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "7000burgroutes-cffynf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "trails"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "hsl(37, 1%, 60%)",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          1.5
+        ],
+        "line-blur": 1,
+        "line-translate": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "Trail 7000",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "7000burgroutes-cffynf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "trails"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "hsl(37, 0%, 100%)",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          1.5
+        ]
+      }
+    },
+    {
+      "id": "Underway",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "7000burgroutes-cffynf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "Underway"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "hsl(37, 100%, 32%)",
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0,
+          6,
+          [
+            "case",
+            [
+              "has",
+              "type"
+            ],
+            1,
+            0
+          ]
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "id": "Routes",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "7000burgroutes-cffynf",
+      "slot": "",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "roads"
+        ],
+        true,
+        false
+      ],
+      "layout": {},
+      "paint": {
+        "line-color": "hsl(48, 100%, 48%)",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          2
+        ]
+      }
+    },
+    {
+      "id": "Searoutes",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "43fc029a1fe950a0494e43bb4c1a6193"
+      },
+      "source": "composite",
+      "source-layer": "7000burgroutes-cffynf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "type"
+        ],
+        [
+          "searoutes"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-dasharray": [
+          1,
+          1
+        ],
+        "line-color": "hsl(68, 0%, 100%)",
+        "line-opacity": [
+          "match",
+          [
+            "get",
+            "type"
+          ],
+          [
+            "searoutes"
+          ],
+          1,
+          0
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          2
+        ]
+      }
+    },
+    {
+      "id": "clickable",
+      "type": "circle",
+      "metadata": {
+        "mapbox:group": "94c40ede28e66b22bf3b82d136e30a37"
+      },
+      "source": "composite",
+      "source-layer": "5000_Burgs-27t0lf",
+      "paint": {
+        "circle-radius": 10,
+        "circle-opacity": 0
+      }
+    },
+    {
+      "id": "Town names",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "94c40ede28e66b22bf3b82d136e30a37"
+      },
+      "source": "composite",
+      "source-layer": "5000_Burgs-27t0lf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "Capital"
+        ],
+        [
+          "capital"
+        ],
+        false,
+        true
+      ],
+      "layout": {
+        "text-line-height": 1,
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          [
+            "interpolate",
+            [
+              "linear"
+            ],
+            [
+              "get",
+              "Population"
+            ],
+            0,
+            10,
+            10000,
+            10,
+            40000,
+            15,
+            600000,
+            20
+          ],
+          7,
+          [
+            "interpolate",
+            [
+              "linear"
+            ],
+            [
+              "get",
+              "Population"
+            ],
+            0,
+            10,
+            10000,
+            10,
+            40000,
+            15,
+            600000,
+            20
+          ],
+          9,
+          20
+        ],
+        "text-radial-offset": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          1,
+          6,
+          2,
+          15,
+          10
+        ],
+        "text-allow-overlap": true,
+        "icon-image": [
+          "case",
+          [
+            "has",
+            "Capital"
+          ],
+          "border-dot-13",
+          [
+            "step",
+            [
+              "get",
+              "Population"
+            ],
+            "dot-9",
+            10000,
+            "dot-9",
+            40000,
+            "dot-11",
+            80000,
+            "dot-10",
+            600000,
+            "border-dot-13"
+          ]
+        ],
+        "icon-rotation-alignment": "map",
+        "text-ignore-placement": true,
+        "symbol-z-elevate": true,
+        "text-offset": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "get",
+            "Elevation (m)"
+          ],
+          63,
+          [
+            "literal",
+            [
+              0.5,
+              0
+            ]
+          ],
+          2785,
+          [
+            "literal",
+            [
+              0.5,
+              0
+            ]
+          ]
+        ],
+        "icon-size": [
+          "case",
+          [
+            "has",
+            "Capital"
+          ],
+          1,
+          [
+            "interpolate",
+            [
+              "linear"
+            ],
+            [
+              "get",
+              "Population"
+            ],
+            0,
+            1,
+            10000,
+            1,
+            40000,
+            1,
+            80000,
+            1,
+            600000,
+            1
+          ]
+        ],
+        "text-anchor": "bottom",
+        "text-field": [
+          "to-string",
+          [
+            "get",
+            "Burg"
+          ]
+        ]
+      },
+      "paint": {
+        "text-halo-color": "rgb(255, 255, 255)",
+        "text-halo-width": 0.5,
+        "text-opacity": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            0,
+            0
+          ],
+          5,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            0,
+            1
+          ],
+          5.5,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            1,
+            1
+          ],
+          6,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            1,
+            1
+          ],
+          6.5,
+          1
+        ],
+        "icon-opacity": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            0,
+            0
+          ],
+          5,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            0,
+            1
+          ],
+          5.5,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            1,
+            1
+          ],
+          6,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              10000
+            ],
+            0,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              80000
+            ],
+            1,
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              60000
+            ],
+            1,
+            1
+          ],
+          6.5,
+          1
+        ],
+        "text-translate": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "Capitals",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "94c40ede28e66b22bf3b82d136e30a37"
+      },
+      "source": "composite",
+      "source-layer": "5000_Burgs-27t0lf",
+      "filter": [
+        "match",
+        [
+          "get",
+          "Capital"
+        ],
+        [
+          "capital"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.5,
+          5,
+          25
+        ],
+        "text-radial-offset": 1,
+        "text-allow-overlap": true,
+        "icon-image": "border-dot-13",
+        "icon-rotation-alignment": "map",
+        "symbol-z-elevate": true,
+        "text-offset": [
+          0.5,
+          0
+        ],
+        "icon-size": [
+          "case",
+          [
+            "has",
+            "Capital"
+          ],
+          1,
+          [
+            "interpolate",
+            [
+              "linear"
+            ],
+            [
+              "get",
+              "Population"
+            ],
+            0,
+            1,
+            10000,
+            1,
+            40000,
+            1,
+            80000,
+            1,
+            600000,
+            1
+          ]
+        ],
+        "text-anchor": "bottom",
+        "text-field": [
+          "to-string",
+          [
+            "get",
+            "Burg"
+          ]
+        ]
+      },
+      "paint": {
+        "text-halo-color": "rgb(255, 255, 255)",
+        "text-halo-width": 2,
+        "text-halo-blur": 2,
+        "icon-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          4,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            1
+          ],
+          5,
+          1
+        ],
+        "text-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          4,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Population"
+              ],
+              40000
+            ],
+            0,
+            1
+          ],
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "id": "State name border",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "StatesBigane2-1rnkj4",
+      "layout": {
+        "text-field": [
+          "to-string",
+          [
+            "get",
+            "State"
+          ]
+        ],
+        "symbol-placement": "line-center",
+        "symbol-avoid-edges": true,
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "text-keep-upright": false
+      },
+      "paint": {
+        "text-translate": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "Island names",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "IslandsBigane2-de3y63",
+      "layout": {
+        "text-field": [
+          "to-string",
+          [
+            "get",
+            "Names Island"
+          ]
+        ],
+        "text-allow-overlap": true,
+        "text-ignore-placement": true,
+        "symbol-z-elevate": true,
+        "text-radial-offset": 2,
+        "text-anchor": "bottom",
+        "text-font": [
+          "Open Sans Italic",
+          "Arial Unicode MS Regular"
+        ]
+      },
+      "paint": {}
+    },
+    {
+      "id": "State name",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "Name_location_States-7dkgwg",
+      "layout": {
+        "text-line-height": 1,
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          4,
+          [
+            "min",
+            [
+              "+",
+              10,
+              [
+                "/",
+                [
+                  "get",
+                  "Cells"
+                ],
+                50
+              ]
+            ]
+          ]
+        ],
+        "text-radial-offset": 2,
+        "text-allow-overlap": true,
+        "text-variable-anchor": [
+          "bottom"
+        ],
+        "symbol-avoid-edges": true,
+        "text-ignore-placement": true,
+        "text-font": [
+          "Spectral Medium Italic",
+          "Arial Unicode MS Regular"
+        ],
+        "text-padding": 0,
+        "symbol-z-elevate": true,
+        "text-anchor": "bottom-right",
+        "text-field": [
+          "get",
+          "Full Name"
+        ],
+        "text-max-width": 15
+      },
+      "paint": {
+        "text-halo-color": "hsl(0, 0%, 100%)",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          1,
+          4,
+          [
+            "case",
+            [
+              "<",
+              [
+                "get",
+                "Cells"
+              ],
+              40
+            ],
+            0,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "Provinces",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "ProvincesBigane2-asmhcp",
+      "paint": {
+        "line-dasharray": [
+          3,
+          8
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4,
+          0,
+          6,
+          0.42
+        ]
+      }
+    },
+    {
+      "id": "Province colour",
+      "type": "fill",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "ProvincesBigane2-asmhcp",
+      "filter": [
+        "match",
+        [
+          "get",
+          "Province"
+        ],
+        [
+          "Old Hill"
+        ],
+        true,
+        false
+      ],
+      "layout": {},
+      "paint": {
+        "fill-color": [
+          "case",
+          [
+            "match",
+            [
+              "get",
+              "Province"
+            ],
+            [
+              "Old Hill"
+            ],
+            false,
+            true
+          ],
+          [
+            "get",
+            "Color"
+          ],
+          [
+            "rgb",
+            65,
+            105,
+            225
+          ]
+        ],
+        "fill-opacity": [
+          "step",
+          [
+            "zoom"
+          ],
+          0,
+          7,
+          0.21
+        ]
+      }
+    },
+    {
+      "id": "Border outline",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "b1d4fd471b7c5874ad1ab43ff2bdebc3"
+      },
+      "source": "composite",
+      "source-layer": "StatesBigane2-1rnkj4",
+      "layout": {
+        "line-round-limit": 0
+      },
+      "paint": {
+        "line-color": "hsl(0, 0%, 0%)",
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          6,
+          0.3
+        ]
+      }
+    }
+  ],
+  "protected": false
+}
